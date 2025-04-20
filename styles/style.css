@@ -422,83 +422,59 @@ section h2 {
 /* .geos padding set above */
 .geo-map-container {
     position: relative;
-    max-width: 1000px;
+    max-width: 1200px;
+    width: 100%;
     margin: 50px auto 0 auto;
-    padding-bottom: 50%; /* Aspect ratio (e.g., 2:1 width:height) */
-    height: 0; /* Collapse height, use padding for aspect ratio */
+    padding-bottom: 60%; /* Фиксированное соотношение сторон 16:10 */
+    height: 0;
     overflow: hidden;
-    background-color: var(--medium-gray); /* Background for the container */
+    background-color: transparent;
     border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-light);
 }
 
-.world-map { /* SVG element */
+#chartdiv {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Scale SVG within container */
-}
-/* Optional: Style SVG paths if you use a real map */
-/* .world-map path { fill: var(--light-gray); stroke: var(--dark-gray); stroke-width: 0.5px; } */
-
-.geo-pin {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    background: var(--gold);
-    border-radius: 50%;
-    border: 2px solid var(--dark);
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    animation: pulse-pin 2s infinite ease-in-out;
-    box-shadow: 0 0 0 0 rgba(255, 217, 0, 0.7);
-
-    z-index: 5; /* Below hovered pin tooltips */
-}
-.geo-pin:hover,
-.geo-pin:focus {
-    transform: scale(1.6);
-    background-color: var(--light-gold);
-    box-shadow: 0 0 15px rgba(255, 217, 0, 0.6);
-    z-index: 7; /* Above non-hovered pins */
-    outline: none;
-
-    animation-play-state: paused; /* Pause pulse on hover */
+    background-color: transparent;
 }
 
-/* Tooltip using ::after and data-tooltip attribute */
-.geo-pin::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: 160%; /* Position above the pin */
-    left: 50%;
-    transform: translateX(-50%) scale(0.8);
-    background: var(--dark);
-    color: var(--gold);
-    padding: 8px 14px;
-    border-radius: var(--border-radius-sm);
-    font-size: 0.9rem;
-    white-space: pre-rap;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
-    box-shadow: var(--shadow-light);
-    z-index: 10; /* Above everything */
+/* Стили для точек на карте */
+.map-point {
+    fill: var(--gold);
+    opacity: 0.8;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.geo-pin:hover::after,
-.geo-pin:focus::after {
+
+.map-point:hover {
     opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) scale(1);
+    transform: scale(1.2);
 }
 
-@keyframes pulse-pin {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 217, 0, 0.7); }
-    50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 217, 0, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 217, 0, 0); }
+/* Стили для тултипов */
+.map-tooltip {
+    background-color: var(--dark-gray) !important;
+    border: 1px solid var(--gold) !important;
+    color: var(--text-light) !important;
+    padding: 8px 12px !important;
+    border-radius: var(--border-radius-sm) !important;
+    font-size: 0.9rem !important;
+    box-shadow: var(--shadow-medium) !important;
+}
+
+@media (max-width: 1200px) {
+    .geo-map-container {
+        padding-bottom: 65%; /* Немного увеличиваем высоту для средних экранов */
+    }
+}
+
+@media (max-width: 768px) {
+    .geo-map-container {
+        padding-bottom: 75%; /* Еще больше увеличиваем для мобильных */
+        margin-top: 30px;
+    }
 }
 
 /* ============================
@@ -674,77 +650,121 @@ section h2 {
 /* ============================
    Leaderboard Section
    ============================ */
-/* .leaderboard styles (if any) */
+.leaderboard {
+    padding: 60px 5%;
+    background: var(--dark);
+    position: relative;
+}
+
+.leaderboard h2 {
+    color: var(--light-gold);
+    text-align: center;
+    font-size: clamp(2.2rem, 5.5vw, 3rem);
+    margin-bottom: 50px;
+}
 
 .leaderboard-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Default: 1 column */
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    max-width: 1300px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px; /* Add padding for better mobile view */
-}
-
-/* Responsive columns */
-@media (min-width: 480px) {
-    .leaderboard-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
-}
-@media (min-width: 768px) {
-    .leaderboard-grid { grid-template-columns: repeat(3, 1fr); gap: 30px; }
-}
-@media (min-width: 1024px) {
-    .leaderboard-grid { grid-template-columns: repeat(4, 1fr); gap: 35px; }
+    padding: 0 20px;
 }
 
 .leaderboard-item {
     background: var(--dark-gray);
-    padding: 20px 25px;
-    border-radius: var(--border-radius-md);
-    border-left: 5px solid var(--gold);
+    border-radius: 12px;
+    padding: 20px;
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-light);
-    min-height: 100px; /* Ensure consistent height */
+    position: relative;
+    overflow: hidden;
+    transform: translate(-50px, 0px);
+    opacity: 1;
+    visibility: inherit;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
-.leaderboard-item:hover,
-.leaderboard-item:focus-within { /* Highlight on hover or focus inside */
-    background-color: var(--medium-gray);
-    transform: translateX(5px);
-    box-shadow: var(--shadow-medium);
-    outline: none;
+
+.leaderboard-item:hover {
+    background-color: #252525;
+    transform: translate(-50px, -3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
-.leaderboard-item .rank {
-    font-size: 1.6rem;
+
+.leaderboard-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--gold);
+}
+
+.rank-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+.rank {
+    font-size: 2.5rem;
     font-weight: 700;
     color: var(--gold);
-    min-width: 35px; /* Ensure consistent width */
-    text-align: center;
     line-height: 1;
-    flex-shrink: 0; /* Prevent rank from shrinking */
 }
-.leaderboard-item .info {
-    text-align: left;
+
+.info {
     flex-grow: 1;
-    line-height: 1.4;
-    overflow: hidden; /* Prevent long names/scores breaking layout */
 }
-.leaderboard-item .name {
-    display: block;
-    font-weight: 700;
-    margin-bottom: 5px;
+
+.name {
     color: var(--text-light);
-    font-size: 1.1rem;
-    white-space: nowrap; /* Prevent name wrapping */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Add ellipsis for long names */
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
-.leaderboard-item .score {
-    display: block;
-    font-size: 0.95rem;
-    color: var(--light-gold);
-    opacity: 0.8;
+
+.score {
+    color: var(--gold);
+    font-size: 1.1rem;
+}
+
+@media (max-width: 1200px) {
+    .leaderboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .leaderboard {
+        padding: 40px 20px;
+    }
+    
+    .leaderboard-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+    
+    .leaderboard-item {
+        padding: 15px;
+    }
+    
+    .rank {
+        font-size: 2rem;
+    }
+    
+    .name {
+        font-size: 1.1rem;
+    }
+    
+    .score {
+        font-size: 1rem;
+    }
 }
 
 /* ============================
@@ -760,9 +780,9 @@ section h2 {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    /* Ensure banner-signup.webp exists */
-    background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.95)), url('images/banner-signup.webp') center/cover no-repeat;
-    background-attachment: fixed; /* Parallax effect */
+    /* Исправляем путь к изображению */
+    background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.95)), url('../images/banner-signup.webp') center/cover no-repeat;
+    background-attachment: fixed;
     filter: blur(3px) brightness(0.7);
     z-index: -1;
 }
@@ -844,7 +864,7 @@ section h2 {
    Footer
    ============================ */
 footer {
-    padding: 50px 5%;
+    padding: 60px 5% 40px;
     text-align: center;
     background: var(--dark-gray);
     margin-top: 60px;
@@ -852,21 +872,128 @@ footer {
     clear: both;
     width: 100%;
 }
+
 .footer-logo {
     max-width: 120px;
     height: auto;
     margin-bottom: 20px;
     opacity: 0.8;
-    display: inline-block; /* Allows text-align center to work */
+    display: inline-block;
+    transition: opacity 0.3s ease;
 }
-footer p {
+
+.footer-logo:hover {
+    opacity: 1;
+}
+
+footer .copyright {
     font-size: 0.9rem;
     color: var(--text-medium);
     margin-bottom: 15px;
 }
-.footer-links {
-    margin-top: 15px;
+
+.privacy-link {
+    background: none;
+    border: none;
+    color: var(--text-medium);
+    font-size: 0.85rem;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-bottom: 25px;
+    font-family: inherit;
 }
+
+.privacy-link:hover,
+.privacy-link:focus {
+    color: var(--text-light);
+    outline: none;
+    text-decoration: underline;
+}
+
+/* Contact Icons in Footer */
+footer .contacts-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 20px auto;
+}
+
+footer .contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: var(--dark);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+footer .contact-item:hover {
+    transform: translateY(-3px);
+    background: var(--dark);
+    box-shadow: 0 0 15px rgba(255, 217, 0, 0.4);
+}
+
+footer .contact-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+/* Specific adjustments for each icon */
+footer .contact-icon[alt="Facebook"] {
+    width: 105%;
+    height: 105%;
+}
+
+footer .contact-icon[alt="Skype"] {
+    width: 130%;
+    height: 130%;
+    margin-top: -2px;
+}
+
+footer .contact-icon[alt="Telegram"] {
+    width: 100%;
+    height: 100%;
+}
+
+footer .contact-item:hover .contact-icon {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+footer .contact-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+/* Footer Privacy Section */
+.footer-privacy {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.privacy-text {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    line-height: 1.5;
+}
+
+.footer-links {
+    margin-top: 25px;
+}
+
 .footer-links a {
     color: var(--gold);
     text-decoration: none;
@@ -874,11 +1001,48 @@ footer p {
     font-size: 0.9rem;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
+
 .footer-links a:hover,
 .footer-links a:focus {
     color: var(--light-gold);
     text-decoration: underline;
     outline: none;
+}
+
+/* Update footer responsive styles */
+@media (max-width: 767px) {
+    footer {
+        padding: 50px 4% 35px;
+    }
+    
+    .footer-privacy {
+        padding: 15px;
+        margin: 25px auto;
+    }
+    
+    .privacy-text {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        padding: 40px 3% 30px;
+    }
+    
+    .footer-privacy {
+        padding: 12px;
+        margin: 20px auto;
+    }
+    
+    .privacy-text {
+        font-size: 0.8rem;
+    }
+    
+    .footer-links a {
+        display: block;
+        margin: 8px 0;
+    }
 }
 
 /* ============================
@@ -938,6 +1102,26 @@ textarea:focus-visible,
     .custom-swiper-btn::after { font-size: 0.9rem; }
     .geo-map-container { padding-bottom: 55%; }
     .signup-content { padding: 40px 30px; }
+    .leaderboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .leaderboard-item {
+        padding: 20px 25px;
+    }
+    
+    .leaderboard-item .rank {
+        font-size: 2.2rem;
+    }
+    
+    .leaderboard-item .name {
+        font-size: 1.2rem;
+    }
+    
+    .leaderboard-item .score {
+        font-size: 1rem;
+    }
 }
 /* Small Devices */
 @media (max-width: 767px) {
@@ -960,10 +1144,15 @@ textarea:focus-visible,
     .signup-content { padding: 35px 25px; max-width: 95%; width: 95%; }
     .signup p { font-size: 1rem; }
     .sticky-cta { padding: 10px 20px; font-size: 0.9rem; }
-    footer { padding: 40px 4%; }
+    footer { padding: 50px 4% 35px; }
     .footer-logo { max-width: 100px; }
     footer p, .footer-links a { font-size: 0.85rem; }
     .footer-links a { margin: 0 8px; }
+    .leaderboard { padding: 40px 4%; }
+    .leaderboard-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 15px;
+    }
 }
 /* Extra Small Devices */
 @media (max-width: 480px) {
@@ -999,10 +1188,10 @@ textarea:focus-visible,
     }
     /* Leaderboard grid already responsive (1 column) */
     .leaderboard-item { padding: 15px 20px; gap: 15px; }
-    .leaderboard-item .rank { font-size: 1.4rem; min-width: 30px;}
+    .leaderboard-item .rank { font-size: 2rem; min-width: 35px;}
     .leaderboard-item .name { font-size: 1rem; }
     .leaderboard-item .score { font-size: 0.85rem; }
-    footer { padding: 30px 3%; }
+    footer { padding: 40px 3% 30px; }
     .footer-logo { max-width: 90px; }
 }
 
@@ -1044,52 +1233,50 @@ textarea:focus-visible,
 
 /* Contacts Section */
 .contacts {
-    padding: 80px 5%;
-    background: var(--dark-gray);
+    padding: 20px 5%;
     text-align: center;
 }
 
-.contacts h2 {
-    color: var(--light-gold);
-    margin-bottom: 40px;
-}
-
 .contacts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 300px;
     margin: 0 auto;
 }
 
 .contact-item {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 15px;
-    padding: 20px;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
     background: var(--dark);
-    border-radius: var(--border-radius-md);
-    transition: transform 0.3s ease;
+    border-radius: 50%;
+    transition: all 0.3s ease;
 }
 
 .contact-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
+    background: var(--gold);
 }
 
 .contact-icon {
-    font-size: 2.5rem;
-    color: var(--gold);
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+.contact-item:hover .contact-icon {
+    color: var(--dark);
 }
 
 .contact-item a {
-    color: var(--text-light);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.contact-item a:hover {
-    color: var(--light-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: transparent;
 }
 
 /* Map Updates */
@@ -1101,4 +1288,142 @@ textarea:focus-visible,
 .geo-pin.gray::after {
     background: var(--dark-gray);
     color: var(--text-light);
+}
+
+/* Privacy Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.modal:not([hidden]) {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: var(--dark-gray);
+    border-radius: var(--border-radius-lg);
+    position: relative;
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal:not([hidden]) .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    color: var(--text-medium);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: var(--text-light);
+    transform: rotate(90deg);
+    outline: none;
+}
+
+/* Privacy Modal Specific Styles */
+.privacy-modal-content {
+    max-width: 800px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 40px;
+}
+
+.privacy-content {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.privacy-content h3 {
+    color: var(--light-gold);
+    font-size: 1.5em;
+    margin-bottom: 1.5em;
+    text-align: center;
+}
+
+.privacy-content p {
+    margin-bottom: 1.2em;
+    color: var(--text-medium);
+}
+
+.privacy-content ul {
+    margin: 1em 0 1.5em 1.5em;
+    color: var(--text-medium);
+    list-style-type: disc;
+}
+
+.privacy-content li {
+    margin-bottom: 0.5em;
+}
+
+/* Scrollbar Styling */
+.privacy-modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.privacy-modal-content::-webkit-scrollbar-track {
+    background: var(--dark);
+    border-radius: 4px;
+}
+
+.privacy-modal-content::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
+}
+
+.privacy-modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--light-gold);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .privacy-modal-content {
+        padding: 30px;
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .privacy-modal-content {
+        padding: 20px;
+        width: 100%;
+    }
+    
+    .modal-close {
+        top: 10px;
+        right: 15px;
+    }
 }

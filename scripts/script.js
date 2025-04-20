@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // --- Element Selection ---
     const flags = document.querySelectorAll(".language-toggle img");
     const elementsToTranslate = document.querySelectorAll("[data-en]");
@@ -49,14 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             // Update buttons, specific links, headings, paragraphs, specific spans
             else if (tag === 'button' ||
-                     (tag === 'a' && (classes.contains('cta-button') || classes.contains('sticky-cta') || el.closest('.footer-links'))) ||
+                     (tag === 'a' && (classes.contains('cta-button') || classes.contains('sticky-cta') || classes.contains('privacy-link') || el.closest('.footer-links'))) ||
                      tag === 'h2' || tag === 'h3' || tag === 'p' ||
                      classes.contains('name') || classes.contains('score'))
             {
                  el.textContent = text;
             }
-            // Update input placeholders
-            else if (tag === 'input' && el.placeholder) {
+            // Update input and textarea placeholders
+            else if ((tag === 'input' || tag === 'textarea') && 'placeholder' in el) {
                  el.placeholder = text;
             }
             // Update image alt text
@@ -129,9 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if GSAP and ScrollTrigger are loaded
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
-
-        // Reduced motion check
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         if (!prefersReducedMotion) {
             // Hero text animations (Subtitle and Button)
@@ -326,6 +326,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Provider Modal ---
     if (modal && modalContent && modalCloseButton && modalTitle && modalInfo && modalCta) {
+        // Close modal function
+        const closeProviderModal = () => {
+            modal.setAttribute('hidden', '');
+            document.body.style.overflow = '';
+            if (typeof gsap !== 'undefined' && !prefersReducedMotion) {
+                gsap.to(modalContent, { scale: 0.9, autoAlpha: 0, duration: 0.2, ease: "power2.in" });
+            } else {
+                modalContent.style.opacity = '0';
+                modalContent.style.transform = 'scale(0.9)';
+            }
+        };
+
         // Open modal logic
         providerImages.forEach(img => {
             img.addEventListener('click', () => {
@@ -335,8 +347,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalCta.textContent = ctaText;
 
                 modal.removeAttribute('hidden');
-                // Remove the dark overlay by setting opacity to 0
-                modal.style.background = 'transparent';
                 document.body.style.overflow = 'hidden';
 
                 if (typeof gsap !== 'undefined' && !prefersReducedMotion) {
@@ -346,6 +356,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     modalContent.style.transform = 'scale(1)';
                 }
             });
+        });
+
+        // Close on button click
+        modalCloseButton.addEventListener('click', closeProviderModal);
+
+        // Close on click outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeProviderModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.hasAttribute('hidden')) {
+                closeProviderModal();
+            }
         });
     } else {
         console.warn("Modal elements not found.");
@@ -399,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    alert('Заявка успешно отправлена!');
+                    alert('Form submitted successfully!');
                     signupForm.reset();
                     if (progressElement) {
                         progressElement.style.width = '0%';
@@ -409,12 +436,260 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
+                alert('An error occurred while submitting the form. Please try again.');
             }
         });
     }
 
-    // Prefers reduced motion flag for checks outside GSAP block
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Privacy Policy Modal
+    const privacyModal = document.getElementById('privacy-modal');
+    const privacyButton = document.querySelector('.privacy-link');
+    const privacyModalContent = privacyModal?.querySelector('.modal-content');
+    const privacyModalClose = privacyModal?.querySelector('.modal-close');
+
+    if (privacyModal && privacyButton && privacyModalContent && privacyModalClose) {
+        // Open modal
+        privacyButton.addEventListener('click', () => {
+            console.log('Privacy button clicked'); // Debug
+            privacyModal.removeAttribute('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close modal function
+        const closePrivacyModal = () => {
+            console.log('Closing modal'); // Debug
+            privacyModal.setAttribute('hidden', '');
+            document.body.style.overflow = '';
+        };
+
+        // Close on button click
+        privacyModalClose.addEventListener('click', closePrivacyModal);
+
+        // Close on click outside
+        privacyModal.addEventListener('click', (e) => {
+            if (e.target === privacyModal) {
+                closePrivacyModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !privacyModal.hasAttribute('hidden')) {
+                closePrivacyModal();
+            }
+        });
+    } else {
+        console.warn('Some privacy modal elements are missing:', {
+            modal: !!privacyModal,
+            button: !!privacyButton,
+            content: !!privacyModalContent,
+            close: !!privacyModalClose
+        });
+    }
+
+    // Инициализация карты
+    if (document.getElementById('chartdiv')) {
+        am5.ready(function() {
+            // Создаем root элемент
+            var root = am5.Root.new("chartdiv");
+            
+            // Устанавливаем темную тему
+            root.setThemes([am5themes_Dark.new(root)]);
+            
+            // Создаем карту с обновленными настройками
+            var chart = root.container.children.push(
+                am5map.MapChart.new(root, {
+                    panX: "none",
+                    panY: "none",
+                    wheelX: "none",
+                    wheelY: "none",
+                    projection: am5map.geoMercator(),
+                    maxZoomLevel: 1,
+                    maxPanOut: 0,
+                    layout: root.verticalLayout
+                })
+            );
+            
+            // Создаем полигоны стран с прозрачным фоном
+            var polygonSeries = chart.series.push(
+                am5map.MapPolygonSeries.new(root, {
+                    geoJSON: am5geodata_worldLow,
+                    exclude: ["AQ"],
+                    fill: am5.color(0x000000),
+                    fillOpacity: 0,
+                    stroke: am5.color(0x666666),
+                    strokeWidth: 0.5,
+                    strokeOpacity: 0.3
+                })
+            );
+
+            // Добавляем серию точек
+            var pointSeries = chart.series.push(
+                am5map.MapPointSeries.new(root, {})
+            );
+
+            // Настраиваем внешний вид точек
+            pointSeries.bullets.push(function() {
+                return am5.Bullet.new(root, {
+                    sprite: am5.Circle.new(root, {
+                        radius: 7, // Увеличенный размер точек
+                        fill: am5.color(0xFFD700),
+                        tooltipText: "{title}: {value}%",
+                        strokeWidth: 0,
+                        fillOpacity: 0.8
+                    })
+                });
+            });
+
+            // Добавляем данные точек
+            pointSeries.data.setAll([
+                // Основные страны
+                {
+                    geometry: { type: "Point", coordinates: [37.6173, 55.7558] },
+                    title: "Россия",
+                    value: "60-70"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [30.5234, 50.4501] },
+                    title: "Украина",
+                    value: "90"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [71.4704, 51.1605] },
+                    title: "Казахстан",
+                    value: "90"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [69.2401, 41.2995] },
+                    title: "Узбекистан",
+                    value: "85-99"
+                },
+                // Европейские страны
+                {
+                    geometry: { type: "Point", coordinates: [16.3738, 48.2082] },
+                    title: "Австрия",
+                    value: "75"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [4.3517, 50.8503] },
+                    title: "Бельгия",
+                    value: "80"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [13.4050, 52.5200] },
+                    title: "Германия",
+                    value: "85"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [12.5683, 55.6761] },
+                    title: "Дания",
+                    value: "78"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [24.7536, 59.4369] },
+                    title: "Эстония",
+                    value: "82"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [-3.7038, 40.4168] },
+                    title: "Испания",
+                    value: "77"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [24.9384, 60.1699] },
+                    title: "Финляндия",
+                    value: "79"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [2.3522, 48.8566] },
+                    title: "Франция",
+                    value: "83"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [-0.1276, 51.5074] },
+                    title: "Великобритания",
+                    value: "88"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [-6.2603, 53.3498] },
+                    title: "Ирландия",
+                    value: "76"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [12.4964, 41.9028] },
+                    title: "Италия",
+                    value: "81"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [25.2797, 54.6872] },
+                    title: "Литва",
+                    value: "84"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [24.1052, 56.9496] },
+                    title: "Латвия",
+                    value: "83"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [10.7522, 59.9139] },
+                    title: "Норвегия",
+                    value: "75"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [-9.1393, 38.7223] },
+                    title: "Португалия",
+                    value: "74"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [18.0686, 59.3293] },
+                    title: "Швеция",
+                    value: "82"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [14.5057, 46.0569] },
+                    title: "Словения",
+                    value: "79"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [17.1077, 48.1486] },
+                    title: "Словакия",
+                    value: "81"
+                },
+                {
+                    geometry: { type: "Point", coordinates: [4.9041, 52.3676] },
+                    title: "Нидерланды",
+                    value: "86"
+                }
+            ]);
+
+            // Центрируем карту на Европе и России
+            chart.setZoomLevel(3, 0, 0);
+            chart.setGeoPoint({
+                latitude: 54,
+                longitude: 20
+            }, 0, 0);
+
+            // Анимация точек
+            pointSeries.bullets.template.setAll({
+                opacity: 0,
+                scale: 0.5
+            });
+            
+            pointSeries.bullets.template.states.create("ready", {
+                opacity: 1,
+                scale: 1
+            });
+            
+            pointSeries.bullets.template.states.create("hover", {
+                scale: 1.2,
+                fillOpacity: 1
+            });
+
+            // Применяем анимацию появления
+            setTimeout(function() {
+                pointSeries.bullets.template.states.apply("ready");
+            }, 1000);
+        });
+    }
 
 }); // End DOMContentLoaded
