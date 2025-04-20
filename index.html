@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Зарабатывайте миллионы с Charlie Partners! Официальная партнёрская программа казино №1 с 4000+ слотов и live-игр.">
+    <meta property="og:title" content="Charlie Casino - Зарабатывай с казино №1!">
+    <meta property="og:description" content="Присоединяйся к партнёрской программе Charlie Casino и получай до 70% дохода!">
+    <meta property="og:image" content="images/og-image.jpg"> <!-- Make sure this image exists -->
+    <title>Charlie Partners - Зарабатывай с казино №1!</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"> <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="styles/style.css"> <!-- Your CSS -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon"> <!-- Make sure this icon exists -->
+
+
+
+         
+  <!-- Libraries (Load before your script) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script> <!-- particles.js -->
+
+
+
+    <!-- Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-123456789"></script> <!-- ЗАМЕНИ НА СВОЙ ID -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-123456789'); // ЗАМЕНИМ НА НАШ ID
+    </script>
+</head>
+<body>
+    <header>
+        <div class="language-toggle">
+            <img src="images/flag-ru.png" alt="Русский" data-lang="ru" role="button" aria-label="Переключить на русский" class="active"> <!-- Ensure images exist -->
+            <img src="images/flag-en.png" alt="English" data-lang="en" role="button" aria-label="Switch to English">
+            <img src="images/flag-es.png" alt="Español" data-lang="es" role="button" aria-label="Cambiar a español">
+            <img src="images/flag-pt.png" alt="Português" data-lang="pt" role="button" aria-label="Mudar para português">
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <!-- Background image is applied via CSS ::before -->
+            <div id="coin-canvas" class="coin-canvas"></div>
+            <div class="hero-content">
+                <img src="images/charlie-casino-logo.png" alt="Charlie Casino Logo" class="logo" loading="eager"> <!-- Ensure image exists -->
+                <!-- CORRECTED: Added spans for word animation -->
+                <h1 aria-live="polite" data-en="Earn Millions with Charlie Partners!" data-ru="Зарабатывайте миллионы с Charlie Partners!" data-es="¡Gana Millones con Charlie Partners!" data-pt="Ganhe Milhões com Charlie Partners!">
+                    <span class="word">Зарабатывайте</span> <span class="word">миллионы</span> <span class="word">с</span> <span class="word">Charlie</span> <span class="word">Casino!</span>
+                </h1>
+                <p class="subtitle" data-en="Official Affiliate Program of Casino #1" data-ru="Официальная партнёрская программа казино №1" data-es="Programa de Afiliados Oficial del Casino #1" data-pt="Programa de Afiliados Oficial do Cassino #1">Официальная партнёрская программа казино №1</p>
+                <a href="#signup" class="cta-button" data-en="Join Now!" data-ru="Погнали!" data-es="¡Únete Ahora!" data-pt="Junte-se Agora!" aria-label="Присоединиться к партнерской программе">Погнали!</a>
+            </div>
+            <div id="confetti-canvas"></div>
+        </section>
+
+        <section class="benefits">
+            <h2 data-en="Your Charlie Casino Advantages" data-ru="Твои Преимущества с Charlie Casino" data-es="Tus Ventajas con Charlie Casino" data-pt="Suas Vantagens com Charlie Casino">Твои Преимущества с Charlie Casino</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-percent fa-3x benefit-icon" aria-hidden="true"></i>
+                    <h3 data-en="Up to 70% Revenue" data-ru="До 70% дохода" data-es="Hasta 70% de ingresos" data-pt="Até 70% de receita">До 70% дохода</h3>
+                    <p data-en="Get a fat percentage from every player!" data-ru="Получай жирный процент с каждого игрока!" data-es="¡Obtén un porcentaje gordo por cada jugador!" data-pt="Receba uma porcentagem gorda por cada jogador!">Получай жирный процент с каждого игрока!</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-dice fa-3x benefit-icon" aria-hidden="true"></i>
+                    <h3 data-en="4000+ Slots & Live Games" data-ru="4000+ слотов и live-игр" data-es="4000+ tragamonedas y juegos en vivo" data-pt="4000+ caça-níqueis e jogos ao vivo">4000+ слотов и live-игр</h3>
+                    <p data-en="Games that guarantee player retention (and your income)!" data-ru="Игры, которые гарантируют возврат игроков (и твой доход)!" data-es="¡Juegos que garantizan la retención de jugadores (y tus ingresos)!" data-pt="Jogos que garantem a retenção de jogadores (e sua renda)!">Игры, которые гарантируют возврат игроков (и твой доход)!</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-sack-dollar fa-3x benefit-icon" aria-hidden="true"></i>
+                    <h3 data-en="Payouts 1st–5th" data-ru="Выплаты 1–5 числа" data-es="Pagos del 1 al 5" data-pt="Pagamentos de 1 a 5">Выплаты 1–5 числа</h3>
+                    <p data-en="Your earnings - fast and on time, every time!" data-ru="Твой заработок – быстро и без задержек, точно в срок!" data-es="¡Tus ganancias - rápidas y puntuales, siempre!" data-pt="Seus ganhos - rápidos e pontuais, sempre!">Твой заработок – быстро и без задержек, точно в срок!</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider-container">
+             <div class="neon-divider"></div>
+        </div>
+
+        <section class="geos">
+            <h2 data-en="Our Golden Markets: Maximum Conversion" data-ru="Наши Золотые Рынки: Максимальная Конверсия" data-es="Nuestros Mercados de Oro: Máxima Conversión" data-pt="Nossos Mercados de Ouro: Conversão Máxima">Наши Золотые Рынки: Максимальная Конверсия</h2>
+            <div class="geo-map-container">
+                <!-- CORRECTED: Added placeholder rect. Replace content if real map SVG is used -->
+                <svg viewBox="0 0 1000 500" class="world-map" aria-hidden="true">
+                     <rect width="1000" height="500" fill="var(--medium-gray)"/>
+                     <!-- Add real map <path> elements here if needed -->
+                </svg>
+               <!-- Pins positioned relative to the container -->
+                <div class="geo-pin" data-geo="ukraine"
+                     data-en="Ukraine: 90% Conversion"
+                     data-ru="Украина: 90% конверсия"
+                     data-es="Ucrania: 90% Conversión"
+                     data-pt="Ucrânia: 90% Conversão"
+                     style="top: 45%; left: 62%;"
+                     aria-label="Ukraine Geo Pin"
+                     data-tooltip="Украина: 90% конверсия"></div>
+
+                <div class="geo-pin" data-geo="kazakhstan"
+                     data-en="Kazakhstan: 90% Conversion"
+                     data-ru="Казахстан: 90% конверсия"
+                     data-es="Kazajistán: 90% Conversión"
+                     data-pt="Cazaquistão: 90% Conversão"
+                     style="top: 48%; left: 78%;"
+                     aria-label="Kazakhstan Geo Pin"
+                     data-tooltip="Казахстан: 90% конверсияMin"></div>
+
+                <div class="geo-pin" data-geo="russia"
+                     data-en="Russia: 60–70% Conversion"
+                     data-ru="Россия: 60–70% конверсия"
+                     data-es="Rusia: 60–70% Conversión"
+                     data-pt="Rússia: 60–70% Conversão"
+                     style="top: 35%; left: 85%;"
+                     aria-label="Russia Geo Pin"
+                     data-tooltip="Россия: 60–70% конверсия"></div>
+
+                <div class="geo-pin" data-geo="uzbekistan"
+                     data-en="Uzbekistan: 85–99% Conversion"
+                     data-ru="Узбекистан: 85–99% конверсия"
+                     data-es="Uzbekistán: 85–99% Conversión"
+                     data-pt="Uzbequistão: 85–99% Conversão"
+                     style="top: 52%; left: 75%;"
+                     aria-label="Uzbekistan Geo Pin"
+                     data-tooltip="Узбекистан: 85–99% конверсия"></div>
+
+                <!-- Add European country pins -->
+                <div class="geo-pin gray" data-geo="austria" style="top: 40%; left: 50%;" data-tooltip="Austria: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="belgium" style="top: 35%; left: 45%;" data-tooltip="Belgium: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="germany" style="top: 38%; left: 48%;" data-tooltip="Germany: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="denmark" style="top: 32%; left: 48%;" data-tooltip="Denmark: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="estonia" style="top: 30%; left: 55%;" data-tooltip="Estonia: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="spain" style="top: 45%; left: 40%;" data-tooltip="Spain: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="finland" style="top: 25%; left: 55%;" data-tooltip="Finland: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="france" style="top: 40%; left: 43%;" data-tooltip="France: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="uk" style="top: 35%; left: 42%;" data-tooltip="United Kingdom: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="ireland" style="top: 32%; left: 40%;" data-tooltip="Ireland: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="italy" style="top: 45%; left: 48%;" data-tooltip="Italy: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="lithuania" style="top: 32%; left: 53%;" data-tooltip="Lithuania: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="latvia" style="top: 30%; left: 54%;" data-tooltip="Latvia: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="norway" style="top: 25%; left: 48%;" data-tooltip="Norway: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="portugal" style="top: 45%; left: 38%;" data-tooltip="Portugal: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="sweden" style="top: 28%; left: 52%;" data-tooltip="Sweden: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="slovenia" style="top: 42%; left: 50%;" data-tooltip="Slovenia: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="slovakia" style="top: 40%; left: 52%;" data-tooltip="Slovakia: Connection Available"></div>
+                <div class="geo-pin gray" data-geo="netherlands" style="top: 35%; left: 46%;" data-tooltip="Netherlands: Connection Available"></div>
+            </div>
+        </section>
+
+        <div class="section-divider-container">
+            <div class="neon-divider"></div>
+        </div>
+
+        <section class="providers">
+            <h2 data-en="Games from Industry Leaders" data-ru="Игры от Лидеров Индустрии" data-es="Juegos de Líderes de la Industria" data-pt="Jogos dos Líderes da Indústria">Игры от Лидеров Индустрии</h2>
+            <div class="swiper-container-wrapper">
+                <!-- Changed class from swiper to swiper-container for clarity/consistency -->
+                <div class="swiper swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- Ensure these images exist -->
+                        <div class="swiper-slide"><img src="images/l1.png" alt="NetEnt" data-info="Top slots and live casino games" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="images/l2.png" alt="Pragmatic Play" data-info="Iconic slots and immersive live games" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="images/l3.png" alt="Play'n GO" data-info="Mobile-first casino games" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="images/l4.png" alt="OneTouch" data-info="Vibrant slot experiences" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="images/l5.png" alt="Kalamba" data-info="Engaging slots with high RTP" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="images/l6.png" alt="Evolution Gaming" data-info="Leading live dealer solutions" loading="lazy"></div>
+                        <div class="swiper-slide"><img src="images/l7.png" alt="Nolimit" data-info="Popular mobile-friendly slots" loading="lazy"></div>
+                    </div>
+                 </div>
+                 <div class="swiper-button-prev custom-swiper-btn" aria-label="Previous provider slide"></div>
+                 <div class="swiper-button-next custom-swiper-btn" aria-label="Next provider slide"></div>
+            </div>
+
+            <div class="provider-modal" id="provider-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+                <div class="modal-content">
+                    <button class="modal-close" aria-label="Закрыть модальное окно">×</button>
+                    <h3 id="modal-title">Provider Name</h3>
+                    <p id="modal-info">Provider information.</p>
+                    <a href="#signup" class="cta-button modal-cta" data-en="Join Now!" data-ru="Погнали!" data-es="¡Únete Ahora!" data-pt="Junte-se Agora!">Погнали!</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider-container">
+            <div class="neon-divider"></div>
+        </div>
+
+        <section class="leaderboard">
+            <h2 data-en="Hall of Fame: Our Top Partners" data-ru="Зал Славы: Наши Лучшие Партнёры" data-es="Salón de la Fama: Nuestros Mejores Socios" data-pt="Hall da Fama: Nossos Melhores Parceiros">Зал Славы: Наши Лучшие Партнёры</h2>
+            <div class="leaderboard-grid">
+                <div class="leaderboard-item">
+                    <span class="rank">1</span>
+                    <div class="info">
+                        <span class="name" data-en="Alexey" data-ru="Алексей" data-es="Alexey" data-pt="Alexey">Алексей</span>
+                        <span class="score" data-en="$10,000/mo" data-ru="$10,000/мес" data-es="$10,000/mes" data-pt="$10,000/mês">$10,000/мес</span>
+                    </div>
+                </div>
+                 <div class="leaderboard-item">
+                    <span class="rank">2</span>
+                    <div class="info">
+                        <span class="name" data-en="Maria" data-ru="Мария" data-es="María" data-pt="Maria">Мария</span>
+                        <span class="score" data-en="$8,000/mo" data-ru="$8,000/мес" data-es="$8,000/mes" data-pt="$8,000/mês">$8,000/мес</span>
+                    </div>
+                </div>
+                 <div class="leaderboard-item">
+                    <span class="rank">3</span>
+                    <div class="info">
+                         <span class="name" data-en="Juan" data-ru="Хуан" data-es="Juan" data-pt="Juan">Хуан</span>
+                         <span class="score" data-en="$6,500/mo" data-ru="$6,500/мес" data-es="$6,500/mes" data-pt="$6,500/mês">$6,500/мес</span>
+                     </div>
+                 </div>
+                 <div class="leaderboard-item">
+                    <span class="rank">4</span>
+                    <div class="info">
+                         <span class="name" data-en="Sofia" data-ru="София" data-es="Sofia" data-pt="Sofia">София</span>
+                         <span class="score" data-en="$5,000/mo" data-ru="$5,000/мес" data-es="$5,000/mes" data-pt="$5,000/mês">$5,000/мес</span>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <div class="section-divider-container">
+            <div class="neon-divider"></div>
+        </div>
+
+        <section id="signup" class="signup">
+            <div class="signup-content">
+                <h2 data-en="Ready to Earn Big?" data-ru="Готов Зарабатывать По-Крупному?" data-es="¿Listo para Ganar a lo Grande?" data-pt="Pronto para Ganhar Alto?">Готов Зарабатывать По-Крупному?</h2>
+<p data-en="Fill the form below and start your path with Charlie Casino!"
+   data-ru="Заполни форму ниже и начни свой путь с Charlie Casino!"
+   data-es="¡Completa el formulario y comienza tu camino con Charlie Casino!"
+   data-pt="Preencha o formulário abaixo e comece seu caminho com o Charlie Casino!">Заполни форму ниже и начни свой путь с Charlie Casino!</p>
+                <div class="slot-machine">
+                    <img src="images/slot-machine.png" alt="Слот-машина Charlie" class="slot-machine-img" loading="lazy"> <!-- Ensure image exists -->
+                </div>
+                <div class="progress-bar" aria-hidden="true">
+                    <div class="progress"></div>
+                </div>
+                <form action="/submit-dummy" method="POST" id="signup-form">
+                    <label for="signup-name" class="visually-hidden">Ваше имя</label>
+                    <input id="signup-name" type="text" name="name" placeholder="Ваше имя" required aria-label="Ваше имя" data-en="Your Name" data-ru="Ваше имя" data-es="Tu Nombre" data-pt="Seu Nome">
+
+                    <label for="signup-email" class="visually-hidden">Ваш email</label>
+                    <input id="signup-email" type="email" name="email" placeholder="Ваш email" required aria-label="Ваш email" data-en="Your Email" data-ru="Ваш email" data-es="Tu Email" data-pt="Seu Email">
+
+                    <label for="signup-phone" class="visually-hidden">Ваш телефон (необязательно)</label>
+                    <input id="signup-phone" type="tel" name="phone" placeholder="Ваш телефон (необязательно)" aria-label="Ваш телефон" data-en="Your Phone (Optional)" data-ru="Ваш телефон (необязательно)" data-es="Tu Teléfono (Opcional)" data-pt="Seu Telefone (Opcional)">
+
+                    <label for="signup-telegram" class="visually-hidden">Ваш Telegram</label>
+                    <input id="signup-telegram" type="text" name="telegram" placeholder="Ваш Telegram" required aria-label="Ваш Telegram" data-en="Your Telegram" data-ru="Ваш Telegram" data-es="Tu Telegram" data-pt="Seu Telegram">
+
+                    <label for="signup-message" class="visually-hidden">Ваше сообщение</label>
+                    <textarea id="signup-message" name="message" placeholder="Ваше сообщение" aria-label="Ваше сообщение" data-en="Your Message" data-ru="Ваше сообщение" data-es="Tu Mensaje" data-pt="Sua Mensagem"></textarea>
+
+                    <button type="submit" class="cta-button" data-en="Sign Up Now!" data-ru="Отправить заявку!" data-es="¡Regístrate Ahora!" data-pt="Inscreva-se Agora!" aria-label="Отправить форму регистрации">Отправить заявку!</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sticky CTA Button (controlled by JS) -->
+        <a href="#signup" class="sticky-cta" data-en="Join Now!" data-ru="Погнали!" data-es="¡Únete Ahora!" data-pt="Junte-se Agora!" aria-label="Присоединиться к партнерской программе">Погнали!</a>
+
+    </main>
+
+    <footer>
+        <img src="images/charlie-casino-logo-white.png" alt="Charlie Casino Footer Logo" class="footer-logo" loading="lazy"> <!-- Ensure image exists -->
+        <p data-en="© 2025 Charlie Casino. Powered by Slotegrator." data-ru="© 2025 Charlie Casino. На базе Slotegrator." data-es="© 2025 Charlie Casino. Impulsado por Slotegrator." data-pt="© 2025 Charlie Casino. Desenvolvido por Slotegrator.">© 2025 Charlie Casino. На базе Slotegrator.</p>
+        <div class="footer-links">
+             <!-- ЗАМЕНИ href НА РЕАЛЬНЫЕ ССЫЛКИ -->
+             <a href="/terms" data-en="Terms" data-ru="Условия" data-es="Términos" data-pt="Termos">Условия</a>
+             <a href="/privacy" data-en="Privacy" data-ru="Приватность" data-es="Privacidad" data-pt="Privacidade">Приватность</a>
+        </div>
+    </footer>
+
+   <!-- Your Custom Script -->
+ <script src="scripts/script.js"></script>
+
+<!-- Add Contacts Section -->
+<section class="contacts">
+    <h2 data-en="Contact Us" data-ru="Свяжитесь с нами" data-es="Contáctenos" data-pt="Contate-nos">Свяжитесь с нами</h2>
+    <div class="contacts-grid">
+        <div class="contact-item">
+            <i class="bi bi-skype contact-icon"></i>
+            <a href="skype:your-skype?chat" target="_blank" rel="noopener noreferrer">Skype</a>
+        </div>
+        <div class="contact-item">
+            <i class="bi bi-telegram contact-icon"></i>
+            <a href="https://t.me/your-telegram" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </div>
+        <div class="contact-item">
+            <i class="bi bi-envelope contact-icon"></i>
+            <a href="mailto:your-email@example.com">Email</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>
