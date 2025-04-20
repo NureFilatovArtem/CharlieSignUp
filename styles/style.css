@@ -425,7 +425,7 @@ section h2 {
     max-width: 1200px;
     width: 100%;
     margin: 50px auto 0 auto;
-    padding-bottom: 60%; /* Фиксированное соотношение сторон 16:10 */
+    padding-bottom: 65%; /* Увеличиваем высоту контейнера */
     height: 0;
     overflow: hidden;
     background-color: transparent;
@@ -466,13 +466,13 @@ section h2 {
 
 @media (max-width: 1200px) {
     .geo-map-container {
-        padding-bottom: 65%; /* Немного увеличиваем высоту для средних экранов */
+        padding-bottom: 70%; /* Увеличиваем высоту для средних экранов */
     }
 }
 
 @media (max-width: 768px) {
     .geo-map-container {
-        padding-bottom: 75%; /* Еще больше увеличиваем для мобильных */
+        padding-bottom: 80%; /* Увеличиваем высоту для мобильных */
         margin-top: 30px;
     }
 }
@@ -781,7 +781,7 @@ section h2 {
     top: 0; left: 0;
     width: 100%; height: 100%;
     /* Исправляем путь к изображению */
-    background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.95)), url('../images/banner-signup.webp') center/cover no-repeat;
+    background: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.95)), url('/images/banner-signup.jpg') center/cover no-repeat;
     background-attachment: fixed;
     filter: blur(3px) brightness(0.7);
     z-index: -1;
@@ -1426,4 +1426,11 @@ textarea:focus-visible,
         top: 10px;
         right: 15px;
     }
+}
+
+/* Hide amCharts logo and credits */
+.am5-layer-30 {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }

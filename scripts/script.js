@@ -349,12 +349,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.removeAttribute('hidden');
                 document.body.style.overflow = 'hidden';
 
-                if (typeof gsap !== 'undefined' && !prefersReducedMotion) {
+                 if (typeof gsap !== 'undefined' && !prefersReducedMotion) {
                     gsap.to(modalContent, { scale: 1, autoAlpha: 1, duration: 0.3, ease: "power2.out", delay: 0.1 });
-                } else {
-                    modalContent.style.opacity = '1';
-                    modalContent.style.transform = 'scale(1)';
-                }
+                 } else {
+                     modalContent.style.opacity = '1';
+                     modalContent.style.transform = 'scale(1)';
+                 }
             });
         });
 
@@ -412,13 +412,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (signupForm) {
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const formData = new FormData(signupForm);
             const data = Object.fromEntries(formData.entries());
 
             try {
                 const response = await fetch(signupForm.action, {
-                    method: 'POST',
+                method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('Form submitted successfully!');
                     signupForm.reset();
                     if (progressElement) {
-                        progressElement.style.width = '0%';
+                     progressElement.style.width = '0%';
                     }
                 } else {
                     throw new Error('Network response was not ok');
@@ -484,211 +484,6 @@ document.addEventListener('DOMContentLoaded', () => {
             button: !!privacyButton,
             content: !!privacyModalContent,
             close: !!privacyModalClose
-        });
-    }
-
-    // Инициализация карты
-    if (document.getElementById('chartdiv')) {
-        am5.ready(function() {
-            // Создаем root элемент
-            var root = am5.Root.new("chartdiv");
-            
-            // Устанавливаем темную тему
-            root.setThemes([am5themes_Dark.new(root)]);
-            
-            // Создаем карту с обновленными настройками
-            var chart = root.container.children.push(
-                am5map.MapChart.new(root, {
-                    panX: "none",
-                    panY: "none",
-                    wheelX: "none",
-                    wheelY: "none",
-                    projection: am5map.geoMercator(),
-                    maxZoomLevel: 1,
-                    maxPanOut: 0,
-                    layout: root.verticalLayout
-                })
-            );
-            
-            // Создаем полигоны стран с прозрачным фоном
-            var polygonSeries = chart.series.push(
-                am5map.MapPolygonSeries.new(root, {
-                    geoJSON: am5geodata_worldLow,
-                    exclude: ["AQ"],
-                    fill: am5.color(0x000000),
-                    fillOpacity: 0,
-                    stroke: am5.color(0x666666),
-                    strokeWidth: 0.5,
-                    strokeOpacity: 0.3
-                })
-            );
-
-            // Добавляем серию точек
-            var pointSeries = chart.series.push(
-                am5map.MapPointSeries.new(root, {})
-            );
-
-            // Настраиваем внешний вид точек
-            pointSeries.bullets.push(function() {
-                return am5.Bullet.new(root, {
-                    sprite: am5.Circle.new(root, {
-                        radius: 7, // Увеличенный размер точек
-                        fill: am5.color(0xFFD700),
-                        tooltipText: "{title}: {value}%",
-                        strokeWidth: 0,
-                        fillOpacity: 0.8
-                    })
-                });
-            });
-
-            // Добавляем данные точек
-            pointSeries.data.setAll([
-                // Основные страны
-                {
-                    geometry: { type: "Point", coordinates: [37.6173, 55.7558] },
-                    title: "Россия",
-                    value: "60-70"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [30.5234, 50.4501] },
-                    title: "Украина",
-                    value: "90"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [71.4704, 51.1605] },
-                    title: "Казахстан",
-                    value: "90"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [69.2401, 41.2995] },
-                    title: "Узбекистан",
-                    value: "85-99"
-                },
-                // Европейские страны
-                {
-                    geometry: { type: "Point", coordinates: [16.3738, 48.2082] },
-                    title: "Австрия",
-                    value: "75"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [4.3517, 50.8503] },
-                    title: "Бельгия",
-                    value: "80"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [13.4050, 52.5200] },
-                    title: "Германия",
-                    value: "85"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [12.5683, 55.6761] },
-                    title: "Дания",
-                    value: "78"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [24.7536, 59.4369] },
-                    title: "Эстония",
-                    value: "82"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [-3.7038, 40.4168] },
-                    title: "Испания",
-                    value: "77"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [24.9384, 60.1699] },
-                    title: "Финляндия",
-                    value: "79"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [2.3522, 48.8566] },
-                    title: "Франция",
-                    value: "83"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [-0.1276, 51.5074] },
-                    title: "Великобритания",
-                    value: "88"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [-6.2603, 53.3498] },
-                    title: "Ирландия",
-                    value: "76"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [12.4964, 41.9028] },
-                    title: "Италия",
-                    value: "81"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [25.2797, 54.6872] },
-                    title: "Литва",
-                    value: "84"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [24.1052, 56.9496] },
-                    title: "Латвия",
-                    value: "83"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [10.7522, 59.9139] },
-                    title: "Норвегия",
-                    value: "75"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [-9.1393, 38.7223] },
-                    title: "Португалия",
-                    value: "74"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [18.0686, 59.3293] },
-                    title: "Швеция",
-                    value: "82"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [14.5057, 46.0569] },
-                    title: "Словения",
-                    value: "79"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [17.1077, 48.1486] },
-                    title: "Словакия",
-                    value: "81"
-                },
-                {
-                    geometry: { type: "Point", coordinates: [4.9041, 52.3676] },
-                    title: "Нидерланды",
-                    value: "86"
-                }
-            ]);
-
-            // Центрируем карту на Европе и России
-            chart.setZoomLevel(3, 0, 0);
-            chart.setGeoPoint({
-                latitude: 54,
-                longitude: 20
-            }, 0, 0);
-
-            // Анимация точек
-            pointSeries.bullets.template.setAll({
-                opacity: 0,
-                scale: 0.5
-            });
-            
-            pointSeries.bullets.template.states.create("ready", {
-                opacity: 1,
-                scale: 1
-            });
-            
-            pointSeries.bullets.template.states.create("hover", {
-                scale: 1.2,
-                fillOpacity: 1
-            });
-
-            // Применяем анимацию появления
-            setTimeout(function() {
-                pointSeries.bullets.template.states.apply("ready");
-            }, 1000);
         });
     }
 
