@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"> <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> <!-- Font Awesome -->
     <link rel="stylesheet" href="styles/style.css"> <!-- Your CSS -->
+    <link rel="stylesheet" href="styles/map.css"> <!-- Map CSS -->
     <link rel="icon" href="images/favicon.ico" type="image/x-icon"> <!-- Make sure this icon exists -->
 
 
@@ -94,6 +95,42 @@
 
         <section class="geos">
             <h2 data-en="Our Golden Markets: Maximum Conversion" data-ru="Наши Золотые Рынки: Максимальная Конверсия" data-es="Nuestros Mercados de Oro: Máxima Conversión" data-pt="Nossos Mercados de Ouro: Conversão Máxima">Наши Золотые Рынки: Максимальная Конверсия</h2>
+            
+            <!-- Map Points Data Container -->
+            <div id="map-points-data" style="display: none;">
+                <div class="map-point" 
+                    data-id="RU"
+                    data-lat="55.7558"
+                    data-lng="37.6173"
+                    data-title="Россия"
+                    data-title-en="Russia"
+                    data-title-es="Rusia"
+                    data-title-pt="Rússia"
+                    data-value="65">
+                </div>
+                <div class="map-point" 
+                    data-id="UA"
+                    data-lat="48.4501"
+                    data-lng="30.5234"
+                    data-title="Украина"
+                    data-title-en="Ukraine"
+                    data-title-es="Ucrania"
+                    data-title-pt="Ucrânia"
+                    data-value="90">
+                </div>
+                <div class="map-point" 
+                    data-id="KZ"
+                    data-lat="50.1605"
+                    data-lng="71.4704"
+                    data-title="Казахстан"
+                    data-title-en="Kazakhstan"
+                    data-title-es="Kazajistán"
+                    data-title-pt="Cazaquistão"
+                    data-value="90">
+                </div>
+                <!-- Add more points as needed -->
+            </div>
+
             <div class="geo-map-container">
                 <div id="chartdiv" style="width: 100%; height: 100%;"></div>
             </div>

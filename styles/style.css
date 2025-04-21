@@ -417,67 +417,6 @@ section h2 {
 }
 
 /* ============================
-   GEOs Section
-   ============================ */
-/* .geos padding set above */
-.geo-map-container {
-    position: relative;
-    max-width: 1200px;
-    width: 100%;
-    margin: 50px auto 0 auto;
-    padding-bottom: 65%; /* Увеличиваем высоту контейнера */
-    height: 0;
-    overflow: hidden;
-    background-color: transparent;
-    border-radius: var(--border-radius-md);
-}
-
-#chartdiv {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-}
-
-/* Стили для точек на карте */
-.map-point {
-    fill: var(--gold);
-    opacity: 0.8;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.map-point:hover {
-    opacity: 1;
-    transform: scale(1.2);
-}
-
-/* Стили для тултипов */
-.map-tooltip {
-    background-color: var(--dark-gray) !important;
-    border: 1px solid var(--gold) !important;
-    color: var(--text-light) !important;
-    padding: 8px 12px !important;
-    border-radius: var(--border-radius-sm) !important;
-    font-size: 0.9rem !important;
-    box-shadow: var(--shadow-medium) !important;
-}
-
-@media (max-width: 1200px) {
-    .geo-map-container {
-        padding-bottom: 70%; /* Увеличиваем высоту для средних экранов */
-    }
-}
-
-@media (max-width: 768px) {
-    .geo-map-container {
-        padding-bottom: 80%; /* Увеличиваем высоту для мобильных */
-        margin-top: 30px;
-    }
-}
-
-/* ============================
    Providers Section (Swiper)
    ============================ */
 .providers {
@@ -1100,7 +1039,6 @@ textarea:focus-visible,
     .swiper-container-wrapper { padding: 0 40px; }
     .custom-swiper-btn { width: 35px; height: 35px; }
     .custom-swiper-btn::after { font-size: 0.9rem; }
-    .geo-map-container { padding-bottom: 55%; }
     .signup-content { padding: 40px 30px; }
     .leaderboard-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1135,9 +1073,6 @@ textarea:focus-visible,
     p.subtitle { margin-bottom: 35px; }
     /* Benefits grid already responsive (1 column) */
     .benefit-card { padding: 30px 25px; }
-    .geo-map-container { padding-bottom: 65%; }
-     .geo-pin { width: 15px; height: 15px; }
-     .geo-pin::after { font-size: 0.8rem; padding: 6px 10px; }
     .swiper-container-wrapper { padding: 0 15px; }
     /* Hide Swiper buttons on small screens */
     .custom-swiper-btn { display: none; }
@@ -1165,7 +1100,6 @@ textarea:focus-visible,
     .benefit-icon { font-size: 2.5rem; margin-bottom: 20px; }
     .benefit-card h3 { font-size: 1.3rem; }
     .benefit-card p { font-size: 0.9rem; }
-    .geo-map-container { padding-bottom: 75%; }
     .slot-machine-img { max-width: 100px; }
     .cta-button, .signup button[type="submit"] { /* Ensure submit button also goes full width */
          padding: 14px 25px;
@@ -1208,13 +1142,12 @@ textarea:focus-visible,
         animation-play-state: paused !important; /* Pause CSS animations */
     }
     /* Disable specific animations */
-    .logo, .slot-machine-img, .geo-pin {
+    .logo, .slot-machine-img {
         animation: none;
     }
     /* Disable transform-based hover effects */
     .cta-button:hover, .cta-button:focus,
     .benefit-card:hover,
-    .geo-pin:hover, .geo-pin:focus,
     .swiper-slide:hover img, .swiper-slide:focus img,
     .swiper-slide:hover, .swiper-slide:focus,
     .leaderboard-item:hover, .leaderboard-item:focus-within,
@@ -1433,4 +1366,48 @@ textarea:focus-visible,
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
+}
+
+/* Geo Pin Tooltip Styles */
+.geo-pin {
+    position: relative;
+}
+
+.geo-pin::after {
+    content: attr(data-title) "\A" "Конверсия: " attr(data-value) "%";
+    white-space: pre;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #121212;
+    color: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: 'Montserrat', sans-serif;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
+    border: 1px solid #FFD700;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.geo-pin:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Language-specific tooltip content */
+[lang="en"] .geo-pin::after {
+    content: attr(data-title-en) "\A" "Conversion: " attr(data-value) "%";
+}
+
+[lang="es"] .geo-pin::after {
+    content: attr(data-title-es) "\A" "Conversión: " attr(data-value) "%";
+}
+
+[lang="pt"] .geo-pin::after {
+    content: attr(data-title-pt) "\A" "Conversão: " attr(data-value) "%";
 }

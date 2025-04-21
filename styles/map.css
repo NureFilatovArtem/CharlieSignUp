@@ -1,0 +1,107 @@
+/* Map Container Styles */
+.geo-map-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 50%; /* Aspect ratio for the map */
+    margin: 0 auto;
+    background: transparent;
+    overflow: hidden;
+}
+
+#chartdiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+/* Hide amCharts logo and credits */
+.am5-layer-30 {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Geo Pin Tooltip Styles */
+.geo-pin {
+    position: relative;
+}
+
+.geo-pin::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 160%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background: #121212;
+    color: #FFD700;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    min-width: max-content;
+}
+
+.geo-pin:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+}
+
+/* Language-specific tooltip content */
+[lang="en"] .geo-pin::after {
+    content: attr(data-title-en) "\A" "Conversion: " attr(data-value) "%";
+}
+
+[lang="es"] .geo-pin::after {
+    content: attr(data-title-es) "\A" "Conversión: " attr(data-value) "%";
+}
+
+[lang="pt"] .geo-pin::after {
+    content: attr(data-title-pt) "\A" "Conversão: " attr(data-value) "%";
+}
+
+/* Responsive styles for map container */
+@media (max-width: 1200px) {
+    .geo-map-container {
+        padding-bottom: 55%;
+    }
+}
+
+@media (max-width: 768px) {
+    .geo-map-container {
+        padding-bottom: 65%;
+    }
+    
+    .geo-pin { 
+        width: 15px; 
+        height: 15px; 
+    }
+    
+    .geo-pin::after { 
+        font-size: 0.8rem; 
+        padding: 6px 10px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .geo-map-container {
+        padding-bottom: 75%;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .geo-pin::after {
+        transition: none;
+    }
+}
