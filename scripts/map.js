@@ -1,474 +1,426 @@
-// Инициализация карты
-function initMap() {
-    if (!document.getElementById('chartdiv')) return;
+// Map initialization and tooltip handling
+document.addEventListener('DOMContentLoaded', () => {
+    // Points data with fixed positions
+    const mapPoints = [
+        {
+            id: 'russia',
+            position: {
+                top: '30%',
+                left: '68%'
+            },
+            title: {
+                ru: 'Россия: 60-70% конверсия',
+                en: 'Russia: 60-70% Conversion',
+                es: 'Rusia: 60-70% Conversión',
+                pt: 'Rússia: 60-70% Conversão'
+            }
+        },
+        {
+            id: 'ukraine',
+            position: {
+                top: '37%',
+                left: '54%'
+            },
+            title: {
+                ru: 'Украина: 90% конверсия',
+                en: 'Ukraine: 90% Conversion',
+                es: 'Ucrania: 90% Conversión',
+                pt: 'Ucrânia: 90% Conversão'
+            }
+        },
+        {
+            id: 'kazakhstan',
+            position: {
+                top: '38%',
+                left: '60%'
+            },
+            title: {
+                ru: 'Казахстан: 90% конверсия',
+                en: 'Kazakhstan: 90% Conversion',
+                es: 'Kazajistán: 90% Conversión',
+                pt: 'Cazaquistão: 90% Conversão'
+            }
+        },
+        {
+            id: 'uzbekistan',
+            position: {
+                top: '41%',
+                left: '60%'
+            },
+            title: {
+                ru: 'Узбекистан: 85-99% конверсия',
+                en: 'Uzbekistan: 85-99% Conversion',
+                es: 'Uzbekistán: 85-99% Conversión',
+                pt: 'Uzbequistão: 85-99% Conversão'
+            }
+        },
+        {
+            id: 'austria',
+            position: {
+                top: '40%',
+                left: '55%'
+            },
+            title: {
+                ru: 'Австрия: 75-85% конверсия',
+                en: 'Austria: 75-85% Conversion',
+                es: 'Austria: 75-85% Conversión',
+                pt: 'Áustria: 75-85% Conversão'
+            }
+        },
+        {
+            id: 'belgium',
+            position: {
+                top: '36%',
+                left: '49%'
+            },
+            title: {
+                ru: 'Бельгия: 80-90% конверсия',
+                en: 'Belgium: 80-90% Conversion',
+                es: 'Bélgica: 80-90% Conversión',
+                pt: 'Bélgica: 80-90% Conversão'
+            }
+        },
+        {
+            id: 'germany',
+            position: {
+                top: '37%',
+                left: '51%'
+            },
+            title: {
+                ru: 'Германия: 85-95% конверсия',
+                en: 'Germany: 85-95% Conversion',
+                es: 'Alemania: 85-95% Conversión',
+                pt: 'Alemanha: 85-95% Conversão'
+            }
+        },
+        {
+            id: 'denmark',
+            position: {
+                top: '27%',
+                left: '52%'
+            },
+            title: {
+                ru: 'Дания: 70-80% конверсия',
+                en: 'Denmark: 70-80% Conversion',
+                es: 'Dinamarca: 70-80% Conversión',
+                pt: 'Dinamarca: 70-80% Conversão'
+            }
+        },
+        {
+            id: 'estonia',
+            position: {
+                top: '32%',
+                left: '53%'
+            },
+            title: {
+                ru: 'Эстония: 75-85% конверсия',
+                en: 'Estonia: 75-85% Conversion',
+                es: 'Estonia: 75-85% Conversión',
+                pt: 'Estónia: 75-85% Conversão'
+            }
+        },
+        {
+            id: 'spain',
+            position: {
+                top: '43%',
+                left: '47%'
+            },
+            title: {
+                ru: 'Испания: 65-75% конверсия',
+                en: 'Spain: 65-75% Conversion',
+                es: 'España: 65-75% Conversión',
+                pt: 'Espanha: 65-75% Conversão'
+            }
+        },
+        {
+            id: 'finland',
+            position: {
+                top: '28%',
+                left: '53%'
+            },
+            title: {
+                ru: 'Финляндия: 70-80% конверсия',
+                en: 'Finland: 70-80% Conversion',
+                es: 'Finlandia: 70-80% Conversión',
+                pt: 'Finlândia: 70-80% Conversão'
+            }
+        },
+        {
+            id: 'france',
+            position: {
+                top: '40%',
+                left: '48%'
+            },
+            title: {
+                ru: 'Франция: 75-85% конверсия',
+                en: 'France: 75-85% Conversion',
+                es: 'Francia: 75-85% Conversión',
+                pt: 'França: 75-85% Conversão'
+            }
+        },
+        {
+            id: 'uk',
+            position: {
+                top: '35%',
+                left: '47%'
+            },
+            title: {
+                ru: 'Великобритания: 80-90% конверсия',
+                en: 'United Kingdom: 80-90% Conversion',
+                es: 'Reino Unido: 80-90% Conversión',
+                pt: 'Reino Unido: 80-90% Conversão'
+            }
+        },
+        {
+            id: 'ireland',
+            position: {
+                top: '35%',
+                left: '46%'
+            },
+            title: {
+                ru: 'Ирландия: 70-80% конверсия',
+                en: 'Ireland: 70-80% Conversion',
+                es: 'Irlanda: 70-80% Conversión',
+                pt: 'Irlanda: 70-80% Conversão'
+            }
+        },
+        {
+            id: 'italy',
+            position: {
+                top: '41%',
+                left: '50%'
+            },
+            title: {
+                ru: 'Италия: 75-85% конверсия',
+                en: 'Italy: 75-85% Conversion',
+                es: 'Italia: 75-85% Conversión',
+                pt: 'Itália: 75-85% Conversão'
+            }
+        },
+        {
+            id: 'lithuania',
+            position: {
+                top: '35%',
+                left: '52%'
+            },
+            title: {
+                ru: 'Литва: 70-80% конверсия',
+                en: 'Lithuania: 70-80% Conversion',
+                es: 'Lituania: 70-80% Conversión',
+                pt: 'Lituânia: 70-80% Conversão'
+            }
+        },
+        {
+            id: 'latvia',
+            position: {
+                top: '34%',
+                left: '53%'
+            },
+            title: {
+                ru: 'Латвия: 75-85% конверсия',
+                en: 'Latvia: 75-85% Conversion',
+                es: 'Letonia: 75-85% Conversión',
+                pt: 'Letônia: 75-85% Conversão'
+            }
+        },
+        {
+            id: 'norway',
+            position: {
+                top: '28%',
+                left: '50%'
+            },
+            title: {
+                ru: 'Норвегия: 70-80% конверсия',
+                en: 'Norway: 70-80% Conversion',
+                es: 'Noruega: 70-80% Conversión',
+                pt: 'Noruega: 70-80% Conversão'
+            }
+        },
+        {
+            id: 'portugal',
+            position: {
+                top: '43%',
+                left: '46%'
+            },
+            title: {
+                ru: 'Португалия: 65-75% конверсия',
+                en: 'Portugal: 65-75% Conversion',
+                es: 'Portugal: 65-75% Conversión',
+                pt: 'Portugal: 65-75% Conversão'
+            }
+        },
+        {
+            id: 'sweden',
+            position: {
+                top: '30%',
+                left: '55%'
+            },
+            title: {
+                ru: 'Швеция: 75-85% конверсия',
+                en: 'Sweden: 75-85% Conversion',
+                es: 'Suecia: 75-85% Conversión',
+                pt: 'Suécia: 75-85% Conversão'
+            }
+        },
+        {
+            id: 'slovenia',
+            position: {
+                top: '42%',
+                left: '55%'
+            },
+            title: {
+                ru: 'Словения: 70-80% конверсия',
+                en: 'Slovenia: 70-80% Conversion',
+                es: 'Eslovenia: 70-80% Conversión',
+                pt: 'Eslovênia: 70-80% Conversão'
+            }
+        },
+        {
+            id: 'slovakia',
+            position: {
+                top: '35%',
+                left: '50%'
+            },
+            title: {
+                ru: 'Словакия: 75-85% конверсия',
+                en: 'Slovakia: 75-85% Conversion',
+                es: 'Eslovaquia: 75-85% Conversión',
+                pt: 'Eslováquia: 75-85% Conversão'
+            }
+        },
+        {
+            id: 'netherlands',
+            position: {
+                top: '33%',
+                left: '50%'
+            },
+            title: {
+                ru: 'Нидерланды: 80-90% конверсия',
+                en: 'Netherlands: 80-90% Conversion',
+                es: 'Países Bajos: 80-90% Conversión',
+                pt: 'Países Baixos: 80-90% Conversão'
+            }
+        },
+        {
+            id: 'poland',
+            position: {
+                top: '36%',
+                left: '52%'
+            },
+            title: {
+                ru: 'Польша: 75-85% конверсия',
+                en: 'Poland: 75-85% Conversion',
+                es: 'Polonia: 75-85% Conversión',
+                pt: 'Polônia: 75-85% Conversão'
+            }
+        }
+    ];
 
-    am5.ready(function() {
-        // Создаем root элемент
-        var root = am5.Root.new("chartdiv");
-        
-        // Устанавливаем темную тему
-        root.setThemes([am5themes_Dark.new(root)]);
-        
-        // Создаем карту
-        var chart = root.container.children.push(
-            am5map.MapChart.new(root, {
-                panX: "none",
-                panY: "none",
-                wheelX: "none",
-                wheelY: "none",
-                projection: am5map.geoMercator(),
-                maxZoomLevel: 1,
-                minZoomLevel: 1,
-                homeZoomLevel: 2.5,
-                homeGeoPoint: { latitude: 55, longitude: 25 },
-                maxPanOut: 0
-            })
-        );
-        
-        // Создаем полигоны стран
-        var polygonSeries = chart.series.push(
-            am5map.MapPolygonSeries.new(root, {
-                geoJSON: am5geodata_worldLow,
-                exclude: ["AQ"],
-                fill: am5.color(0x000000),
-                fillOpacity: 0.15,
-                stroke: am5.color(0x666666),
-                strokeWidth: 0.5,
-                strokeOpacity: 0.3,
-                interactive: false
-            })
-        );
-
-        // Создаем серию точек
-        var pointSeries = chart.series.push(
-            am5map.MapPointSeries.new(root, {
-                interactive: true,
-                layer: 1
-            })
-        );
-
-        // Определяем константы для точек
-        const POINT_RUSSIA = {
-            id: "RU",
-            geometry: { type: "Point", coordinates: [37.6173, 55.7558] },
-            title: "Россия",
-            title_en: "Russia",
-            title_es: "Rusia",
-            title_pt: "Rússia",
-            value: 65
-        };
-
-        const POINT_UKRAINE = {
-            id: "UA",
-            geometry: { type: "Point", coordinates: [30.5234, 48.4501] },
-            title: "Украина",
-            title_en: "Ukraine",
-            title_es: "Ucrania",
-            title_pt: "Ucrânia",
-            value: 90
-        };
-
-        const POINT_KAZAKHSTAN = {
-            id: "KZ",
-            geometry: { type: "Point", coordinates: [71.4704, 50.1605] },
-            title: "Казахстан",
-            title_en: "Kazakhstan",
-            title_es: "Kazajistán",
-            title_pt: "Cazaquistão",
-            value: 90
-        };
-
-        const POINT_UZBEKISTAN = {
-            id: "UZ",
-            geometry: { type: "Point", coordinates: [69.2401, 40.2995] },
-            title: "Узбекистан",
-            title_en: "Uzbekistan",
-            title_es: "Uzbekistán",
-            title_pt: "Uzbequistão",
-            value: 92
-        };
-
-        const POINT_AUSTRIA = {
-            id: "AT",
-            geometry: { type: "Point", coordinates: [16.3738, 48.2082] },
-            title: "Австрия",
-            title_en: "Austria",
-            title_es: "Austria",
-            title_pt: "Áustria",
-            value: 84
-        };
-
-        const POINT_BELGIUM = {
-            id: "BE",
-            geometry: { type: "Point", coordinates: [4.3517, 50.8503] },
-            title: "Бельгия",
-            title_en: "Belgium",
-            title_es: "Bélgica",
-            title_pt: "Bélgica",
-            value: 87
-        };
-
-        const POINT_GERMANY = {
-            id: "DE",
-            geometry: { type: "Point", coordinates: [13.4050, 52.5200] },
-            title: "Германия",
-            title_en: "Germany",
-            title_es: "Alemania",
-            title_pt: "Alemanha",
-            value: 85
-        };
-
-        const POINT_DENMARK = {
-            id: "DK",
-            geometry: { type: "Point", coordinates: [12.5683, 55.6761] },
-            title: "Дания",
-            title_en: "Denmark",
-            title_es: "Dinamarca",
-            title_pt: "Dinamarca",
-            value: 83
-        };
-
-        const POINT_ESTONIA = {
-            id: "EE",
-            geometry: { type: "Point", coordinates: [24.7536, 59.4369] },
-            title: "Эстония",
-            title_en: "Estonia",
-            title_es: "Estonia",
-            title_pt: "Estónia",
-            value: 89
-        };
-
-        const POINT_SPAIN = {
-            id: "ES",
-            geometry: { type: "Point", coordinates: [-3.7038, 40.4168] },
-            title: "Испания",
-            title_en: "Spain",
-            title_es: "España",
-            title_pt: "Espanha",
-            value: 82
-        };
-
-        const POINT_FINLAND = {
-            id: "FI",
-            geometry: { type: "Point", coordinates: [24.9384, 60.1699] },
-            title: "Финляндия",
-            title_en: "Finland",
-            title_es: "Finlandia",
-            title_pt: "Finlândia",
-            value: 86
-        };
-
-        const POINT_FRANCE = {
-            id: "FR",
-            geometry: { type: "Point", coordinates: [2.3522, 48.8566] },
-            title: "Франция",
-            title_en: "France",
-            title_es: "Francia",
-            title_pt: "França",
-            value: 83
-        };
-
-        const POINT_UK = {
-            id: "GB",
-            geometry: { type: "Point", coordinates: [-0.1276, 51.5074] },
-            title: "Великобритания",
-            title_en: "United Kingdom",
-            title_es: "Reino Unido",
-            title_pt: "Reino Unido",
-            value: 88
-        };
-
-        const POINT_IRELAND = {
-            id: "IE",
-            geometry: { type: "Point", coordinates: [-6.2603, 53.3498] },
-            title: "Ирландия",
-            title_en: "Ireland",
-            title_es: "Irlanda",
-            title_pt: "Irlanda",
-            value: 85
-        };
-
-        const POINT_ITALY = {
-            id: "IT",
-            geometry: { type: "Point", coordinates: [12.4964, 41.9028] },
-            title: "Италия",
-            title_en: "Italy",
-            title_es: "Italia",
-            title_pt: "Itália",
-            value: 81
-        };
-
-        const POINT_LITHUANIA = {
-            id: "LT",
-            geometry: { type: "Point", coordinates: [25.2797, 54.6872] },
-            title: "Литва",
-            title_en: "Lithuania",
-            title_es: "Lituania",
-            title_pt: "Lituânia",
-            value: 88
-        };
-
-        const POINT_LATVIA = {
-            id: "LV",
-            geometry: { type: "Point", coordinates: [24.1052, 56.9496] },
-            title: "Латвия",
-            title_en: "Latvia",
-            title_es: "Letonia",
-            title_pt: "Letônia",
-            value: 87
-        };
-
-        const POINT_NORWAY = {
-            id: "NO",
-            geometry: { type: "Point", coordinates: [10.7522, 59.9139] },
-            title: "Норвегия",
-            title_en: "Norway",
-            title_es: "Noruega",
-            title_pt: "Noruega",
-            value: 84
-        };
-
-        const POINT_PORTUGAL = {
-            id: "PT",
-            geometry: { type: "Point", coordinates: [-9.1393, 38.7223] },
-            title: "Португалия",
-            title_en: "Portugal",
-            title_es: "Portugal",
-            title_pt: "Portugal",
-            value: 80
-        };
-
-        const POINT_SWEDEN = {
-            id: "SE",
-            geometry: { type: "Point", coordinates: [18.0686, 59.3293] },
-            title: "Швеция",
-            title_en: "Sweden",
-            title_es: "Suecia",
-            title_pt: "Suécia",
-            value: 85
-        };
-
-        const POINT_SLOVENIA = {
-            id: "SI",
-            geometry: { type: "Point", coordinates: [14.5057, 46.0569] },
-            title: "Словения",
-            title_en: "Slovenia",
-            title_es: "Eslovenia",
-            title_pt: "Eslovênia",
-            value: 83
-        };
-
-        const POINT_SLOVAKIA = {
-            id: "SK",
-            geometry: { type: "Point", coordinates: [17.1077, 48.1486] },
-            title: "Словакия",
-            title_en: "Slovakia",
-            title_es: "Eslovaquia",
-            title_pt: "Eslováquia",
-            value: 82
-        };
-
-        const POINT_NETHERLANDS = {
-            id: "NL",
-            geometry: { type: "Point", coordinates: [4.9041, 52.3676] },
-            title: "Нидерланды",
-            title_en: "Netherlands",
-            title_es: "Países Bajos",
-            title_pt: "Países Baixos",
-            value: 86
-        };
-
-        // Массив всех точек
-        const pointData = [
-            POINT_RUSSIA,
-            POINT_UKRAINE,
-            POINT_KAZAKHSTAN,
-            POINT_UZBEKISTAN,
-            POINT_AUSTRIA,
-            POINT_BELGIUM,
-            POINT_GERMANY,
-            POINT_DENMARK,
-            POINT_ESTONIA,
-            POINT_SPAIN,
-            POINT_FINLAND,
-            POINT_FRANCE,
-            POINT_UK,
-            POINT_IRELAND,
-            POINT_ITALY,
-            POINT_LITHUANIA,
-            POINT_LATVIA,
-            POINT_NORWAY,
-            POINT_PORTUGAL,
-            POINT_SWEDEN,
-            POINT_SLOVENIA,
-            POINT_SLOVAKIA,
-            POINT_NETHERLANDS
-        ];
-
-        // Устанавливаем данные
-        pointSeries.data.setAll(pointData);
-
-        // Функция для получения текущего языка
-        function getCurrentLang() {
-            return localStorage.getItem('lang') || 'ru';
+    // Create map points
+    function initializeMap() {
+        const mapContainer = document.querySelector('.geo-map-container');
+        if (!mapContainer) {
+            console.error('Map container not found');
+            return;
         }
 
-        // Функция для форматирования текста тултипа в зависимости от языка
-        function getTooltipText(dataItem) {
-            const lang = getCurrentLang();
-            const title = dataItem.dataContext[`title_${lang}`] || dataItem.dataContext.title;
-            const value = dataItem.dataContext.value;
-            
-            const translations = {
-                ru: `${title}\nКонверсия: ${value}%`,
-                en: `${title}\nConversion: ${value}%`,
-                es: `${title}\nConversión: ${value}%`,
-                pt: `${title}\nConversão: ${value}%`
-            };
-            
-            return translations[lang] || translations.en;
-        }
+        console.log('Initializing map points...');
 
-        // Настраиваем внешний вид точек
-        pointSeries.bullets.push(function(root, series, dataItem) {
-            var container = am5.Container.new(root, {
-                interactive: true,
-                cursorOverStyle: "pointer",
-                tooltipY: 0
+        // Clear existing points
+        const existingPoints = mapContainer.querySelectorAll('.geo-pin');
+        existingPoints.forEach(point => point.remove());
+
+        // Create new points
+        mapPoints.forEach(point => {
+            const pinElement = document.createElement('div');
+            pinElement.className = 'geo-pin';
+            pinElement.setAttribute('data-geo', point.id);
+
+            // Set fixed position
+            pinElement.style.top = point.position.top;
+            pinElement.style.left = point.position.left;
+
+            // Log position for debugging
+            console.log(`${point.id} position:`, point.position);
+
+            // Set data attributes for all languages
+            Object.entries(point.title).forEach(([lang, text]) => {
+                pinElement.setAttribute(`data-${lang}`, text);
             });
 
-            // Пульсирующий круг
-            var pulseCircle = am5.Circle.new(root, {
-                radius: 6,
-                fill: am5.color(0xFFD700),
-                fillOpacity: 0.7,
-                stroke: am5.color(0xFFD700),
-                strokeWidth: 1.5,
-                strokeOpacity: 0.5
-            });
+            // Set initial tooltip text (Russian by default)
+            pinElement.setAttribute('data-tooltip', point.title.ru);
+            pinElement.setAttribute('aria-label', `${point.title.ru} Geo Pin`);
 
-            // Основная точка
-            var circle = am5.Circle.new(root, {
-                radius: 6,
-                fill: am5.color(0xFFD700),
-                fillOpacity: 0.95,
-                stroke: am5.color(0x121212),
-                strokeWidth: 1.5,
-                strokeOpacity: 1,
-                interactive: true,
-                cursorOverStyle: "pointer"
-            });
+            // Add hover animation class
+            pinElement.classList.add('geo-pin-animated');
 
-            // Create tooltip
-            var tooltip = am5.Tooltip.new(root, {
-                getFillFromSprite: false,
-                autoTextColor: false,
-                labelText: getTooltipText(dataItem),
-                background: am5.Rectangle.new(root, {
-                    fill: am5.color(0x121212),
-                    fillOpacity: 1,
-                    stroke: am5.color(0xFFD700),
-                    strokeWidth: 1,
-                    cornerRadius: 4
-                }),
-                label: am5.Label.new(root, {
-                    text: getTooltipText(dataItem),
-                    fill: am5.color(0xFFD700),
-                    fontSize: 14,
-                    paddingLeft: 8,
-                    paddingRight: 8,
-                    paddingTop: 4,
-                    paddingBottom: 4,
-                    textAlign: "center",
-                    whiteSpace: "pre-wrap"
-                }),
-                position: "fixed",
-                pointerOrientation: "vertical",
-                dy: -40, // Move tooltip up
-                dx: 0,
-                animationDuration: 300,
-                animationEasing: am5.ease.out(am5.ease.cubic)
-            });
-
-            // Set tooltip on both container and circle
-            container.set("tooltip", tooltip);
-            circle.set("tooltip", tooltip);
-
-            // Add hover state for circle
-            circle.states.create("hover", {
-                scale: 1.2,
-                fill: am5.color(0xFFD700),
-                stroke: am5.color(0x121212),
-                strokeWidth: 2
-            });
-
-            container.children.push(pulseCircle);
-            container.children.push(circle);
-
-            // Анимация пульсации
-            pulseCircle.animate({
-                key: "scale",
-                from: 1,
-                to: 2.2,
-                duration: 1500,
-                loops: Infinity,
-                easing: am5.ease.out(am5.ease.cubic)
-            });
-
-            pulseCircle.animate({
-                key: "opacity",
-                from: 0.7,
-                to: 0,
-                duration: 1500,
-                loops: Infinity,
-                easing: am5.ease.out(am5.ease.cubic)
-            });
-
-            // Set z-index for better layering
-            container.set("zIndex", 5);
-            circle.set("zIndex", 7);
-
-            return am5.Bullet.new(root, {
-                sprite: container,
-                dynamic: true
-            });
+            mapContainer.appendChild(pinElement);
         });
 
-        // Обновляем тултипы при изменении языка
-        function updateTooltips() {
-            pointSeries.bullets.each(function(bullet) {
-                const dataItem = bullet.dataItem;
-                if (dataItem) {
-                    const lang = getCurrentLang();
-                    const title = dataItem.dataContext[`title_${lang}`] || dataItem.dataContext.title;
-                    const value = dataItem.dataContext.value;
-                    
-                    const translations = {
-                        ru: `${title}\nКонверсия: ${value}%`,
-                        en: `${title}\nConversion: ${value}%`,
-                        es: `${title}\nConversión: ${value}%`,
-                        pt: `${title}\nConversão: ${value}%`
-                    };
-                    
-                    const tooltipText = translations[lang] || translations.en;
-                    const circle = bullet.get("sprite").children.getIndex(1);
-                    if (circle) {
-                        circle.set("data-tooltip", tooltipText);
-                    }
-                }
+        // Initialize tooltips
+        initializeTooltips();
+    }
+
+    // Initialize tooltips and hover effects
+    function initializeTooltips() {
+        const pins = document.querySelectorAll('.geo-pin');
+        
+        pins.forEach(pin => {
+            // Mouse enter event
+            pin.addEventListener('mouseenter', () => {
+                pin.classList.add('geo-pin-hover');
+                console.log(`Hover started on: ${pin.getAttribute('data-geo')}`);
             });
-        }
 
-        // Слушаем изменение языка
-        document.addEventListener('languageChanged', updateTooltips);
+            // Mouse leave event
+            pin.addEventListener('mouseleave', () => {
+                pin.classList.remove('geo-pin-hover');
+                console.log(`Hover ended on: ${pin.getAttribute('data-geo')}`);
+            });
 
-        // Анимация появления точек
-        pointSeries.appear(1000, 100);
+            // Focus events for accessibility
+            pin.addEventListener('focus', () => {
+                pin.classList.add('geo-pin-hover');
+            });
 
-        // Анимация появления карты
-        chart.appear(1000, 100);
+            pin.addEventListener('blur', () => {
+                pin.classList.remove('geo-pin-hover');
+            });
+        });
+    }
+
+    // Update tooltips when language changes
+    function updateMapLanguage(lang) {
+        const pins = document.querySelectorAll('.geo-pin');
+        pins.forEach(pin => {
+            const newText = pin.getAttribute(`data-${lang}`);
+            if (newText) {
+                pin.setAttribute('data-tooltip', newText);
+                pin.setAttribute('aria-label', `${newText} Geo Pin`);
+            }
+        });
+        console.log(`Map language updated to: ${lang}`);
+    }
+
+    // Helper function to add new points
+    window.addMapPoint = function(id, position, titles) {
+        const point = {
+            id,
+            position,
+            title: titles
+        };
+        mapPoints.push(point);
+        initializeMap(); // Refresh the map
+        return point;
+    };
+
+    // Initialize map
+    initializeMap();
+
+    // Listen for language changes
+    document.addEventListener('languageChanged', (e) => {
+        const newLang = e.detail.language;
+        updateMapLanguage(newLang);
     });
-}
-
-// Запускаем инициализацию карты при загрузке страницы
-document.addEventListener('DOMContentLoaded', initMap);
+});

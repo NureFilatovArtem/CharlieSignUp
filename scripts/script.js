@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     signupForm.reset();
                     if (progressElement) {
                      progressElement.style.width = '0%';
-                    }
+                }
                 } else {
                     throw new Error('Network response was not ok');
                 }

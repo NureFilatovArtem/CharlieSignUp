@@ -2,11 +2,24 @@
 .geo-map-container {
     position: relative;
     width: 100%;
+    max-width: 1000px;
     height: 0;
-    padding-bottom: 50%; /* Aspect ratio for the map */
+    padding-bottom: 40%; /* Reduced from 50% to make it smaller */
     margin: 0 auto;
     background: transparent;
     overflow: hidden;
+}
+
+/* World Map */
+.world-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/map.png') center/contain no-repeat;
+    opacity: 0.3;
+    border-radius: 10px;
 }
 
 #chartdiv {
@@ -25,36 +38,77 @@
     opacity: 0 !important;
 }
 
-/* Geo Pin Tooltip Styles */
+/* Map Pin Styles */
 .geo-pin {
-    position: relative;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #FFD700;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease;
+    z-index: 2;
 }
 
+/* Pin Hover Effect */
+.geo-pin:hover,
+.geo-pin:focus,
+.geo-pin.geo-pin-hover {
+    transform: translate(-50%, -50%) scale(1.4);
+}
+
+/* Pin Pulse Animation */
+.geo-pin::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #FFD700;
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: pulse 2s ease-out infinite;
+}
+
+/* Tooltip Styles */
 .geo-pin::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 160%;
+    bottom: 130%;
     left: 50%;
     transform: translateX(-50%) scale(0.8);
-    background: #121212;
-    color: #FFD700;
-    padding: 8px 14px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    white-space: pre-wrap;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    border: 2px solid #FFD700;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 999;
-    min-width: max-content;
+    transition: all 0.3s ease;
+    z-index: 3;
 }
 
-.geo-pin:hover::after {
+/* Show Tooltip on Hover */
+.geo-pin:hover::after,
+.geo-pin:focus::after,
+.geo-pin.geo-pin-hover::after {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) scale(1);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
 }
 
 /* Language-specific tooltip content */
@@ -70,38 +124,49 @@
     content: attr(data-title-pt) "\A" "Conversão: " attr(data-value) "%";
 }
 
-/* Responsive styles for map container */
+/* Responsive styles */
 @media (max-width: 1200px) {
     .geo-map-container {
-        padding-bottom: 55%;
+        padding-bottom: 45%;
     }
 }
 
 @media (max-width: 768px) {
     .geo-map-container {
-        padding-bottom: 65%;
+        padding-bottom: 55%;
     }
-    
-    .geo-pin { 
-        width: 15px; 
-        height: 15px; 
+    .geo-pin {
+        width: 15px;
+        height: 15px;
     }
-    
-    .geo-pin::after { 
-        font-size: 0.8rem; 
-        padding: 6px 10px; 
+    .geo-pin::after {
+        font-size: 12px;
+        padding: 6px 10px;
     }
 }
 
 @media (max-width: 480px) {
     .geo-map-container {
-        padding-bottom: 75%;
+        padding-bottom: 65%;
+    }
+    .geo-pin {
+        width: 12px;
+        height: 12px;
+    }
+    .geo-pin::after {
+        font-size: 11px;
+        padding: 5px 8px;
     }
 }
 
-/* Reduced motion preferences */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
+    .geo-pin::before {
+        animation: none;
+    }
+    .geo-pin,
     .geo-pin::after {
         transition: none;
     }
 }
+

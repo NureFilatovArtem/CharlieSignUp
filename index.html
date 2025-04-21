@@ -15,16 +15,11 @@
     <link rel="stylesheet" href="styles/map.css"> <!-- Map CSS -->
     <link rel="icon" href="images/favicon.ico" type="image/x-icon"> <!-- Make sure this icon exists -->
 
-
-
-         
-  <!-- Libraries (Load before your script) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script> <!-- particles.js -->
-
-
+    <!-- Libraries (Load before your script) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script> <!-- particles.js -->
 
     <!-- Google Tag Manager -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-123456789"></script> <!-- ЗАМЕНИ НА СВОЙ ID -->
@@ -35,11 +30,6 @@
         gtag('config', 'G-123456789'); // ЗАМЕНИМ НА НАШ ID
     </script>
 
-    <!-- В секции head, после других скриптов -->
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Dark.js"></script>
     <script src="scripts/map.js"></script>
 </head>
 <body>
@@ -95,44 +85,9 @@
 
         <section class="geos">
             <h2 data-en="Our Golden Markets: Maximum Conversion" data-ru="Наши Золотые Рынки: Максимальная Конверсия" data-es="Nuestros Mercados de Oro: Máxima Conversión" data-pt="Nossos Mercados de Ouro: Conversão Máxima">Наши Золотые Рынки: Максимальная Конверсия</h2>
-            
-            <!-- Map Points Data Container -->
-            <div id="map-points-data" style="display: none;">
-                <div class="map-point" 
-                    data-id="RU"
-                    data-lat="55.7558"
-                    data-lng="37.6173"
-                    data-title="Россия"
-                    data-title-en="Russia"
-                    data-title-es="Rusia"
-                    data-title-pt="Rússia"
-                    data-value="65">
-                </div>
-                <div class="map-point" 
-                    data-id="UA"
-                    data-lat="48.4501"
-                    data-lng="30.5234"
-                    data-title="Украина"
-                    data-title-en="Ukraine"
-                    data-title-es="Ucrania"
-                    data-title-pt="Ucrânia"
-                    data-value="90">
-                </div>
-                <div class="map-point" 
-                    data-id="KZ"
-                    data-lat="50.1605"
-                    data-lng="71.4704"
-                    data-title="Казахстан"
-                    data-title-en="Kazakhstan"
-                    data-title-es="Kazajistán"
-                    data-title-pt="Cazaquistão"
-                    data-value="90">
-                </div>
-                <!-- Add more points as needed -->
-            </div>
-
             <div class="geo-map-container">
-                <div id="chartdiv" style="width: 100%; height: 100%;"></div>
+                <div class="world-map"></div>
+                <!-- Map pins will be dynamically added here by JavaScript -->
             </div>
         </section>
 
