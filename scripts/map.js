@@ -34,17 +34,17 @@ function initMap() {
                 fillOpacity: 0.15,
                 stroke: am5.color(0x666666),
                 strokeWidth: 0.5,
-                strokeOpacity: 0.3
+                strokeOpacity: 0.3,
+                interactive: false
             })
         );
 
         // Создаем серию точек
         var pointSeries = chart.series.push(
-            am5map.MapPointSeries.new(root, {})
+            am5map.MapPointSeries.new(root, {
+                interactive: true
+            })
         );
-
-        // Создаем шаблон для точек
-        var circleTemplate = am5.Template.new({});
 
         // Функция для получения текущего языка
         function getCurrentLang() {
@@ -64,93 +64,90 @@ function initMap() {
                 pt: `${title}\nConversão: ${value}%`
             };
             
-            return `[bold]${translations[lang] || translations.en}[/]`;
+            return translations[lang] || translations.en;
         }
 
         // Настраиваем внешний вид точек
         pointSeries.bullets.push(function() {
-            var circle = am5.Circle.new(root, {
-                radius: 9,
-                fill: am5.color(0xFFD700),
-                fillOpacity: 1,
-                stroke: am5.color(0x121212),
-                strokeWidth: 2,
-                strokeOpacity: 1,
+            var container = am5.Container.new(root, {
+                interactive: true,
+                cursorOverStyle: "pointer",
                 tooltipY: 0
-            }, circleTemplate);
+            });
 
-            // Создаем пульсирующую анимацию
-            var pulseAnimation = circle.animate({
+            // Пульсирующий круг (добавляем первым, чтобы он был под основной точкой)
+            var pulseCircle = am5.Circle.new(root, {
+                radius: 6,
+                fill: am5.color(0xFFD700),
+                fillOpacity: 0.5,
+                stroke: am5.color(0xFFD700),
+                strokeWidth: 1,
+                strokeOpacity: 0.3
+            });
+
+            // Основная точка
+            var circle = am5.Circle.new(root, {
+                radius: 6,
+                fill: am5.color(0xFFD700),
+                fillOpacity: 0.9,
+                stroke: am5.color(0x121212),
+                strokeWidth: 1.5,
+                strokeOpacity: 1
+            });
+
+            // Добавляем круги в контейнер
+            container.children.push(pulseCircle);
+            container.children.push(circle);
+
+            // Анимация пульсации
+            pulseCircle.animate({
                 key: "scale",
                 from: 1,
-                to: 1.08392,
-                duration: 2000,
+                to: 2,
+                duration: 2500,
                 loops: Infinity,
-                easing: am5.ease.inOut(am5.ease.cubic)
+                easing: am5.ease.out(am5.ease.cubic)
             });
 
-            // Анимация тени
-            circle.animate({
-                key: "shadowBlur",
-                from: 0,
-                to: 8.3916,
-                duration: 2000,
-                loops: Infinity,
-                easing: am5.ease.inOut(am5.ease.cubic)
-            });
-
-            // Анимация прозрачности тени
-            circle.animate({
-                key: "shadowOpacity",
-                from: 0.7,
+            pulseCircle.animate({
+                key: "opacity",
+                from: 0.5,
                 to: 0,
-                duration: 2000,
+                duration: 2500,
                 loops: Infinity,
-                easing: am5.ease.inOut(am5.ease.cubic)
+                easing: am5.ease.out(am5.ease.cubic)
             });
 
-            // Добавляем состояния для интерактивности
-            circle.states.create("hover", {
-                scale: 1.2,
-                fillOpacity: 1,
+            // Настройка тултипа
+            var tooltip = am5.Tooltip.new(root, {
+                getFillFromSprite: false,
+                autoTextColor: false,
+                pointerOrientation: "horizontal",
+                labelText: "{tooltipContent}",
+                fill: am5.color(0x121212),
                 stroke: am5.color(0xFFD700),
-                strokeWidth: 2,
-                strokeOpacity: 1,
-                dx: 0,
-                dy: -3
-            });
-
-            // Настраиваем тултип
-            circle.set("tooltipText", "{tooltipContent}");
-            circle.setAll({
-                tooltip: am5.Tooltip.new(root, {
-                    getFillFromSprite: false,
-                    autoTextColor: false,
+                strokeOpacity: 0.5,
+                strokeWidth: 1,
+                fontSize: "0.9em",
+                fontFamily: "Montserrat",
+                paddingTop: 8,
+                paddingBottom: 8,
+                paddingLeft: 12,
+                paddingRight: 12,
+                background: am5.RoundedRectangle.new(root, {
                     fill: am5.color(0x121212),
-                    fillOpacity: 1,
+                    fillOpacity: 0.9,
                     stroke: am5.color(0xFFD700),
                     strokeOpacity: 0.5,
                     strokeWidth: 1,
-                    paddingTop: 8,
-                    paddingBottom: 8,
-                    paddingLeft: 14,
-                    paddingRight: 14,
-                    fontSize: "0.9rem",
-                    fontFamily: "Montserrat",
-                    background: am5.RoundedRectangle.new(root, {
-                        fill: am5.color(0x121212),
-                        fillOpacity: 1,
-                        stroke: am5.color(0xFFD700),
-                        strokeOpacity: 0.5,
-                        strokeWidth: 1,
-                        cornerRadius: 5
-                    })
+                    cornerRadius: 4
                 })
             });
 
+            container.set("tooltip", tooltip);
+
             return am5.Bullet.new(root, {
-                sprite: circle,
-                dynamic: true
+                sprite: container
             });
         });
 
@@ -165,7 +162,7 @@ function initMap() {
                 value: 65
             },
             {
-                geometry: { type: "Point", coordinates: [30.5234, 50.4501] },
+                geometry: { type: "Point", coordinates: [30.5234, 48.4501] },
                 title: "Украина",
                 title_en: "Ukraine",
                 title_es: "Ucrania",
@@ -173,7 +170,7 @@ function initMap() {
                 value: 90
             },
             {
-                geometry: { type: "Point", coordinates: [71.4704, 51.1605] },
+                geometry: { type: "Point", coordinates: [71.4704, 50.1605] },
                 title: "Казахстан",
                 title_en: "Kazakhstan",
                 title_es: "Kazajistán",
@@ -181,7 +178,7 @@ function initMap() {
                 value: 90
             },
             {
-                geometry: { type: "Point", coordinates: [69.2401, 41.2995] },
+                geometry: { type: "Point", coordinates: [69.2401, 40.2995] },
                 title: "Узбекистан",
                 title_en: "Uzbekistan",
                 title_es: "Uzbekistán",
@@ -346,7 +343,10 @@ function initMap() {
         function updateTooltips() {
             pointSeries.bullets.each(function(bullet) {
                 if (bullet.get("sprite")) {
-                    bullet.get("sprite").set("tooltipText", getTooltipText(bullet.dataItem));
+                    const circle = bullet.get("sprite").children.getIndex(1);
+                    if (circle) {
+                        circle.set("tooltipText", getTooltipText(bullet.dataItem));
+                    }
                 }
             });
         }
@@ -354,16 +354,16 @@ function initMap() {
         // Слушаем изменение языка
         document.addEventListener('languageChanged', updateTooltips);
 
-        // Устанавливаем данные и добавляем обработчик для обновления тултипов
+        // Устанавливаем данные
         pointSeries.data.setAll(pointData.map(item => ({
             ...item,
             tooltipContent: getTooltipText({ dataContext: item })
         })));
 
-        // Добавляем анимацию появления точек
+        // Анимация появления точек
         pointSeries.appear(1000, 100);
 
-        // Устанавливаем начальное положение и добавляем анимацию появления карты
+        // Анимация появления карты
         chart.appear(1000, 100);
     });
 }
