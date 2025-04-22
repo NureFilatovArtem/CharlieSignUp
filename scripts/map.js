@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'denmark',
             position: {
-                top: '32%',
-                left: '52%'
+                top: '37%',
+                left: '50%'
             },
             title: {
                 ru: 'Дания: 70-80% конверсия',
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'norway',
             position: {
-                top: '33%',
+                top: '35%',
                 left: '50%'
             },
             title: {
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'netherlands',
             position: {
-                top: '38%',
+                top: '39%',
                 left: '50%'
             },
             title: {
@@ -319,27 +319,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to adjust position based on scale
     function adjustPositionForScale(scale) {
         const baseScale = 175; // Base scale where positions are perfect
-        const adjustmentStep = 3; // Smaller adjustment step (3% per 10% scale difference)
         
-        if (scale <= 150) {
-            const scaleDiff = Math.floor((150 - scale) / 10); // How many 10% steps down from 150
-            const adjustment = scaleDiff * adjustmentStep;
-            
-            console.log(`Scale: ${scale}, Adjustment: -${adjustment}%`);
+        // Add 5% to top position when scale is between 100% and 140%
+        if (scale >= 100 && scale <= 140) {
+            console.log(`Scale: ${scale}, Adjustment: +7%`);
             
             // Update all points
             const pins = document.querySelectorAll('.geo-pin');
             pins.forEach(pin => {
                 const originalTop = parseInt(pin.getAttribute('data-original-top'));
                 if (!isNaN(originalTop)) {
-                    // Ensure we don't go below 0%
-                    const newTop = Math.max(0, originalTop - adjustment);
+                    const newTop = originalTop + 7; // Add 5% to top position
                     pin.style.top = `${newTop}%`;
                     console.log(`${pin.getAttribute('data-geo')}: ${originalTop}% -> ${newTop}%`);
                 }
             });
         } else {
-            // Reset to original positions if scale is above 150
+            // Reset to original positions if scale is outside 100-140% range
             const pins = document.querySelectorAll('.geo-pin');
             pins.forEach(pin => {
                 const originalTop = pin.getAttribute('data-original-top');
