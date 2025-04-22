@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'russia',
             position: {
-                top: '30%',
+                top: '35%',
                 left: '68%'
             },
             title: {
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'ukraine',
             position: {
-                top: '37%',
+                top: '42%',
                 left: '54%'
             },
             title: {
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'kazakhstan',
             position: {
-                top: '38%',
+                top: '43%',
                 left: '60%'
             },
             title: {
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'uzbekistan',
             position: {
-                top: '41%',
+                top: '46%',
                 left: '60%'
             },
             title: {
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'austria',
             position: {
-                top: '40%',
+                top: '45%',
                 left: '55%'
             },
             title: {
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'belgium',
             position: {
-                top: '36%',
+                top: '41%',
                 left: '49%'
             },
             title: {
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'germany',
             position: {
-                top: '37%',
+                top: '42%',
                 left: '51%'
             },
             title: {
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'denmark',
             position: {
-                top: '27%',
+                top: '32%',
                 left: '52%'
             },
             title: {
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'estonia',
             position: {
-                top: '32%',
+                top: '37%',
                 left: '53%'
             },
             title: {
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'spain',
             position: {
-                top: '43%',
+                top: '48%',
                 left: '47%'
             },
             title: {
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'finland',
             position: {
-                top: '28%',
+                top: '33%',
                 left: '53%'
             },
             title: {
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'france',
             position: {
-                top: '40%',
+                top: '45%',
                 left: '48%'
             },
             title: {
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'uk',
             position: {
-                top: '35%',
+                top: '40%',
                 left: '47%'
             },
             title: {
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'ireland',
             position: {
-                top: '35%',
+                top: '40%',
                 left: '46%'
             },
             title: {
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'italy',
             position: {
-                top: '41%',
+                top: '46%',
                 left: '50%'
             },
             title: {
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'lithuania',
             position: {
-                top: '35%',
+                top: '40%',
                 left: '52%'
             },
             title: {
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'latvia',
             position: {
-                top: '34%',
+                top: '39%',
                 left: '53%'
             },
             title: {
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'norway',
             position: {
-                top: '28%',
+                top: '33%',
                 left: '50%'
             },
             title: {
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'portugal',
             position: {
-                top: '43%',
+                top: '48%',
                 left: '46%'
             },
             title: {
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'sweden',
             position: {
-                top: '30%',
+                top: '35%',
                 left: '55%'
             },
             title: {
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'slovenia',
             position: {
-                top: '42%',
+                top: '47%',
                 left: '55%'
             },
             title: {
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'slovakia',
             position: {
-                top: '35%',
+                top: '40%',
                 left: '50%'
             },
             title: {
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'netherlands',
             position: {
-                top: '33%',
+                top: '38%',
                 left: '50%'
             },
             title: {
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'poland',
             position: {
-                top: '36%',
+                top: '41%',
                 left: '52%'
             },
             title: {
@@ -315,6 +315,40 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     ];
+
+    // Function to adjust position based on scale
+    function adjustPositionForScale(scale) {
+        const baseScale = 175; // Base scale where positions are perfect
+        const adjustmentStep = 3; // Smaller adjustment step (3% per 10% scale difference)
+        
+        if (scale <= 150) {
+            const scaleDiff = Math.floor((150 - scale) / 10); // How many 10% steps down from 150
+            const adjustment = scaleDiff * adjustmentStep;
+            
+            console.log(`Scale: ${scale}, Adjustment: -${adjustment}%`);
+            
+            // Update all points
+            const pins = document.querySelectorAll('.geo-pin');
+            pins.forEach(pin => {
+                const originalTop = parseInt(pin.getAttribute('data-original-top'));
+                if (!isNaN(originalTop)) {
+                    // Ensure we don't go below 0%
+                    const newTop = Math.max(0, originalTop - adjustment);
+                    pin.style.top = `${newTop}%`;
+                    console.log(`${pin.getAttribute('data-geo')}: ${originalTop}% -> ${newTop}%`);
+                }
+            });
+        } else {
+            // Reset to original positions if scale is above 150
+            const pins = document.querySelectorAll('.geo-pin');
+            pins.forEach(pin => {
+                const originalTop = pin.getAttribute('data-original-top');
+                if (originalTop) {
+                    pin.style.top = `${originalTop}%`;
+                }
+            });
+        }
+    }
 
     // Create map points
     function initializeMap() {
@@ -336,50 +370,73 @@ document.addEventListener('DOMContentLoaded', () => {
             pinElement.className = 'geo-pin';
             pinElement.setAttribute('data-geo', point.id);
 
-            // Set fixed position
+            // Store original position as data attribute (without %)
+            const originalTop = parseInt(point.position.top);
+            pinElement.setAttribute('data-original-top', originalTop);
+            
+            // Set initial position
             pinElement.style.top = point.position.top;
             pinElement.style.left = point.position.left;
 
             // Log position for debugging
-            console.log(`${point.id} position:`, point.position);
+            console.log(`${point.id} initial position: top=${point.position.top}, left=${point.position.left}`);
 
             // Set data attributes for all languages
             Object.entries(point.title).forEach(([lang, text]) => {
                 pinElement.setAttribute(`data-${lang}`, text);
             });
 
-            // Set initial tooltip text (Russian by default)
+            // Set initial tooltip text
             pinElement.setAttribute('data-tooltip', point.title.ru);
             pinElement.setAttribute('aria-label', `${point.title.ru} Geo Pin`);
-
-            // Add hover animation class
-            pinElement.classList.add('geo-pin-animated');
 
             mapContainer.appendChild(pinElement);
         });
 
         // Initialize tooltips
         initializeTooltips();
+        
+        // Initial position adjustment based on current scale
+        const transform = getComputedStyle(mapContainer).transform;
+        if (transform && transform !== 'none') {
+            const scale = parseFloat(transform.split('(')[1]) || 1.75;
+            adjustPositionForScale(scale * 100);
+        }
+    }
+
+    // Add scale change detection
+    const mapContainer = document.querySelector('.geo-map-container');
+    if (mapContainer) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                    const transform = getComputedStyle(mapContainer).transform;
+                    if (transform && transform !== 'none') {
+                        const scale = parseFloat(transform.split('(')[1]) || 1.75;
+                        adjustPositionForScale(scale * 100);
+                    }
+                }
+            });
+        });
+
+        observer.observe(mapContainer, {
+            attributes: true,
+            attributeFilter: ['style']
+        });
     }
 
     // Initialize tooltips and hover effects
     function initializeTooltips() {
         const pins = document.querySelectorAll('.geo-pin');
-        
         pins.forEach(pin => {
-            // Mouse enter event
             pin.addEventListener('mouseenter', () => {
                 pin.classList.add('geo-pin-hover');
-                console.log(`Hover started on: ${pin.getAttribute('data-geo')}`);
             });
 
-            // Mouse leave event
             pin.addEventListener('mouseleave', () => {
                 pin.classList.remove('geo-pin-hover');
-                console.log(`Hover ended on: ${pin.getAttribute('data-geo')}`);
             });
 
-            // Focus events for accessibility
             pin.addEventListener('focus', () => {
                 pin.classList.add('geo-pin-hover');
             });
@@ -411,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: titles
         };
         mapPoints.push(point);
-        initializeMap(); // Refresh the map
+        initializeMap();
         return point;
     };
 
