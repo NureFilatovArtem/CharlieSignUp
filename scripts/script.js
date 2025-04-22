@@ -487,4 +487,71 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Form submission handling
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const form = this;
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+        
+        // Show loading state
+        submitButton.textContent = 'Отправка...';
+        submitButton.disabled = true;
+        
+        // Get form data and format it for the API
+        const formData = new FormData(form);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            tg: formData.get('telegram'),
+            phone: formData.get('phone')
+        };
+        
+        // Send direct request to API
+        fetch('http://185.125.50.27:8080/form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                // Show success message
+                form.innerHTML = `
+                    <div class="success-message" style="text-align: center; padding: 20px;">
+                        <h3 style="color: var(--gold); margin-bottom: 15px;">Спасибо за заявку!</h3>
+                        <p style="color: var(--text-light);">Мы свяжемся с вами в ближайшее время.</p>
+                    </div>`;
+            } else {
+                throw new Error(data.message || 'Произошла ошибка при отправке формы');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Show error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.style.color = '#ff4444';
+            errorDiv.style.marginBottom = '15px';
+            errorDiv.style.textAlign = 'center';
+            errorDiv.textContent = error.message;
+            
+            // Insert error message before the form
+            form.insertBefore(errorDiv, form.firstChild);
+            
+            // Reset button
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        });
+    });
+
 }); // End DOMContentLoaded
