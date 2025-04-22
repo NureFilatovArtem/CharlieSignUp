@@ -669,7 +669,7 @@ section h2 {
     position: relative;
     padding: 100px 5%;
     overflow: hidden;
-    background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+    background: var(--dark);
 }
 
 .signup::before {
@@ -679,7 +679,7 @@ section h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+    background: var(--dark);
     z-index: 1;
 }
 
@@ -688,7 +688,7 @@ section h2 {
     z-index: 2;
     max-width: 650px;
     margin: 0 auto;
-    background: rgba(30, 30, 30, 0.8);
+    background: rgba(18, 18, 18, 0.95);
     padding: 50px 40px;
     border-radius: var(--border-radius-lg);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
@@ -1256,24 +1256,27 @@ textarea:focus-visible,
 .privacy-content {
     color: var(--text-light);
     line-height: 1.6;
+    text-align: left;
 }
 
 .privacy-content h3 {
     color: var(--light-gold);
     font-size: 1.5em;
     margin-bottom: 1.5em;
-    text-align: center;
+    text-align: center; /* Keep the title centered */
 }
 
 .privacy-content p {
     margin-bottom: 1.2em;
     color: var(--text-medium);
+    text-align: left;
 }
 
 .privacy-content ul {
-    margin: 1em 0 1.5em 1.5em;
+    margin: 1em 0 1.5em 2em;
     color: var(--text-medium);
     list-style-type: disc;
+    text-align: left;
 }
 
 .privacy-content li {
@@ -1368,4 +1371,17 @@ textarea:focus-visible,
 
 [lang="pt"] .geo-pin::after {
     content: attr(data-title-pt) "\A" "Conversão: " attr(data-value) "%";
+}
+
+/* Privacy Policy Language Switching */
+.privacy-content {
+    display: none; /* Hide all versions by default */
+}
+
+/* Show content based on page language */
+[lang="ru"] .privacy-content[data-lang-content="ru"],
+[lang="en"] .privacy-content[data-lang-content="en"],
+[lang="es"] .privacy-content[data-lang-content="es"],
+[lang="pt"] .privacy-content[data-lang-content="pt"] {
+    display: block;
 }

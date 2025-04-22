@@ -374,17 +374,10 @@ document.addEventListener('DOMContentLoaded', () => {
             pinElement.style.top = point.position.top;
             pinElement.style.left = point.position.left;
 
-            // Log position for debugging
-            console.log(`${point.id} initial position: top=${point.position.top}, left=${point.position.left}`);
-
             // Set data attributes for all languages
             Object.entries(point.title).forEach(([lang, text]) => {
                 pinElement.setAttribute(`data-${lang}`, text);
             });
-
-            // Set initial tooltip text
-            pinElement.setAttribute('data-tooltip', point.title.ru);
-            pinElement.setAttribute('aria-label', `${point.title.ru} Geo Pin`);
 
             mapContainer.appendChild(pinElement);
         });
@@ -449,7 +442,6 @@ document.addEventListener('DOMContentLoaded', () => {
         pins.forEach(pin => {
             const newText = pin.getAttribute(`data-${lang}`);
             if (newText) {
-                pin.setAttribute('data-tooltip', newText);
                 pin.setAttribute('aria-label', `${newText} Geo Pin`);
             }
         });

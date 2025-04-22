@@ -8,6 +8,9 @@
     margin: 0 auto;
     background: transparent;
     overflow: hidden;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    border-radius: 10px;
 }
 
 /* World Map */
@@ -75,7 +78,7 @@
 
 /* Tooltip Styles */
 .geo-pin::after {
-    content: attr(data-tooltip);
+    content: attr(data-ru);
     position: absolute;
     bottom: 130%;
     left: 50%;
@@ -115,16 +118,20 @@
 }
 
 /* Language-specific tooltip content */
+[lang="ru"] .geo-pin::after {
+    content: attr(data-ru);
+}
+
 [lang="en"] .geo-pin::after {
-    content: attr(data-title-en) "\A" "Conversion: " attr(data-value) "%";
+    content: attr(data-en);
 }
 
 [lang="es"] .geo-pin::after {
-    content: attr(data-title-es) "\A" "Conversión: " attr(data-value) "%";
+    content: attr(data-es);
 }
 
 [lang="pt"] .geo-pin::after {
-    content: attr(data-title-pt) "\A" "Conversão: " attr(data-value) "%";
+    content: attr(data-pt);
 }
 
 /* Responsive styles */
